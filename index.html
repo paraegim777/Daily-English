@@ -316,21 +316,22 @@ async function generateScenes(){
   if(!clKey){showSetup();return;}
   if(generating)return;
   generating=true;
-  const topics=pickTopics(2);
-  showLoading(`오늘의 주제로 문장을 만드는 중...\n${topics.join(' · ')}`);
-  const prompt=`다음 2개 주제에 대해 각각 8개씩 영어 회화 문장을 만들어 주세요.
-주제: ${topics.map((t,i)=>`${i+1}. ${t}`).join(', ')}
-각 문장마다 구동사가 있으면 pvs 배열에, 주요 단어는 words 배열에 발음기호 포함.
-반드시 아래 JSON만 반환 (마크다운 없이):
-[{"topic":"주제명","situation":"한 줄 상황 설명(한국어)","phrases":[{"en":"영어문장","ko":"한국어번역","pvs":[{"pv":"구동사","ko":"뜻","ex":"예문"}],"words":[{"w":"단어","p":"/발음기호/","pos":"품사","ko":"뜻"}]}]}]
-일상에서 실제로 쓰는 자연스러운 구어체. 짧고 실용적으로.`;
+  const topics=pickTopics(1);
+  showLoading(`오늘의 주제로 문장을 만드는 중...\n${topics[0]}`);
+  const prompt=`주제: ${topics[0]}
+
+위 주제로 일상 영어 회화 문장 10개를 만들어주세요.
+각 문장마다: 구동사 있으면 pvs에, 핵심단어(최대 2개)는 words에 발음기호 포함.
+짧고 자연스러운 구어체로. 반드시 JSON만 반환(마크다운 없이):
+
+[{"topic":"주제명","situation":"상황설명(한국어)","phrases":[{"en":"영어문장","ko":"한국어번역","pvs":[{"pv":"구동사","ko":"뜻","ex":"예문"}],"words":[{"w":"단어","p":"/발음기호/","pos":"품사","ko":"뜻"}]}]}]`;
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514', max_tokens:6000,
-        system:'영어 회화 학습 콘텐츠 전문가. 유효한 JSON 배열만 반환. 마크다운 없이.',
+        model:'claude-sonnet-4-20250514', max_tokens:8000,
+        system:'English learning expert. Return ONLY valid JSON array. No markdown, no explanation, no extra text before or after JSON.',
         messages:[{role:'user',content:prompt}]
       })
     });

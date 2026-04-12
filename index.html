@@ -2,534 +2,525 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily English</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>소리튠 Daily English</title>
 <style>
-  :root {
-    --bg: #ffffff;
-    --bg2: #f5f5f3;
-    --bg3: #eeede8;
-    --text: #1a1a1a;
-    --text2: #666660;
-    --text3: #999990;
-    --border: rgba(0,0,0,0.12);
-    --border2: rgba(0,0,0,0.22);
-    --info-bg: #e6f1fb;
-    --info: #0c447c;
-    --success-bg: #eaf3de;
-    --success: #3b6d11;
-    --warn-bg: #faeeda;
-    --warn: #633806;
-    --danger-bg: #fcebeb;
-    --danger: #791f1f;
-    --radius: 8px;
-    --radius-lg: 12px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1c;
-      --bg2: #252525;
-      --bg3: #2e2e2e;
-      --text: #f0f0f0;
-      --text2: #aaaaaa;
-      --text3: #777770;
-      --border: rgba(255,255,255,0.12);
-      --border2: rgba(255,255,255,0.22);
-      --info-bg: #042c53;
-      --info: #85b7eb;
-      --success-bg: #173404;
-      --success: #97c459;
-      --warn-bg: #412402;
-      --warn: #fac775;
-      --danger-bg: #501313;
-      --danger: #f09595;
-    }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg3);
-    color: var(--text);
-    min-height: 100vh;
-  }
-  .wrap {
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem 4rem;
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.25rem;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .app-title { font-size: 18px; font-weight: 600; color: var(--text); }
-  .date-badge {
-    display: inline-block;
-    font-size: 11px;
-    padding: 2px 10px;
-    border-radius: 100px;
-    background: var(--success-bg);
-    color: var(--success);
-    margin-left: 8px;
-    font-weight: 500;
-  }
-  .icon-btn {
-    padding: 6px 14px;
-    font-size: 12px;
-    border: 0.5px solid var(--border2);
-    border-radius: 100px;
-    cursor: pointer;
-    background: transparent;
-    color: var(--text2);
-  }
-  .icon-btn:hover { background: var(--bg2); }
+:root{
+  --bg:#fff;--bg2:#f6f5f2;--bg3:#eeedea;
+  --text:#1a1a1a;--text2:#666;--text3:#999;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.2);
+  --teal:#0f6e56;--teal-bg:#e1f5ee;--teal-light:#9fe1cb;
+  --amber:#633806;--amber-bg:#faeeda;
+  --info:#0c447c;--info-bg:#e6f1fb;
+  --danger:#791f1f;--r:10px;--rl:16px
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1a1a1a;--bg2:#242424;--bg3:#2a2a2a;
+  --text:#f0f0f0;--text2:#aaa;--text3:#666;
+  --border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);
+  --teal:#5dcaa5;--teal-bg:#085041;--teal-light:#1d9e75;
+  --amber:#fac775;--amber-bg:#412402;
+  --info:#85b7eb;--info-bg:#042c53;
+  --danger:#f09595
+}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh}
+.wrap{max-width:480px;margin:0 auto;padding:1.25rem 1rem 5rem}
 
-  .streak-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 1.5rem; }
-  .streak-item { text-align: center; flex: 1; background: var(--bg2); border-radius: var(--radius); padding: 10px 8px; }
-  .streak-n { font-size: 22px; font-weight: 600; color: var(--text); }
-  .streak-l { font-size: 11px; color: var(--text2); margin-top: 2px; }
+/* header */
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
+.logo{font-size:17px;font-weight:700;color:var(--text)}
+.logo span{color:var(--teal)}
+.date-pill{font-size:11px;padding:2px 9px;border-radius:100px;background:var(--teal-bg);color:var(--teal);font-weight:600;margin-left:6px}
+.cfg-btn{padding:6px 13px;font-size:12px;border:0.5px solid var(--border2);border-radius:100px;cursor:pointer;background:transparent;color:var(--text2)}
 
-  .scene-nav { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .nav-chip {
-    padding: 5px 14px; font-size: 12px;
-    border: 0.5px solid var(--border);
-    border-radius: 100px; cursor: pointer;
-    background: transparent; color: var(--text2);
-  }
-  .nav-chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .nav-chip.dashed { border-style: dashed; }
+/* stats */
+.stats{display:flex;gap:8px;margin-bottom:1.25rem}
+.stat{flex:1;background:var(--bg2);border-radius:var(--r);padding:10px 6px;text-align:center}
+.stat-n{font-size:22px;font-weight:700;color:var(--text)}
+.stat-l{font-size:10px;color:var(--text3);margin-top:1px}
 
-  .progress-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background .15s; }
-  .dot.done { background: #9fe1cb; }
-  .dot.current { background: var(--text); width: 22px; border-radius: 4px; }
+/* mode tabs */
+.mode-tabs{display:flex;gap:6px;margin-bottom:1.25rem}
+.mode-tab{flex:1;padding:8px 4px;font-size:12px;font-weight:600;border:0.5px solid var(--border);border-radius:var(--r);cursor:pointer;background:var(--bg2);color:var(--text2);text-align:center}
+.mode-tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
 
-  .card {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .scene-card { background: var(--bg2); border-radius: 16px; padding: 1.25rem; text-align: center; margin-bottom: 1.25rem; border: none; }
-  .scene-label { font-size: 11px; color: var(--text3); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 4px; }
-  .scene-topic { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .scene-situation { font-size: 13px; color: var(--text2); line-height: 1.6; }
+/* progress */
+.dots{display:flex;justify-content:center;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer}
+.dot.done{background:var(--teal-light)}
+.dot.cur{background:var(--teal);width:20px;border-radius:4px}
 
-  .phrase-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem 1.25rem; margin-bottom: .75rem; text-align: center; }
-  .phrase-num { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
-  .phrase-en { font-size: 24px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 10px; }
-  .phrase-ko { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 8px; }
-  .ko-toggle { font-size: 12px; color: var(--text3); cursor: pointer; border: none; background: none; padding: 3px 8px; border-radius: var(--radius); }
-  .ko-toggle:hover { background: var(--bg2); }
+/* topic card */
+.topic-card{background:var(--bg2);border-radius:var(--rl);padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
+.topic-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.topic-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.topic-desc{font-size:12px;color:var(--text2);line-height:1.5}
 
-  .info-section { margin-bottom: .75rem; }
-  .info-toggle {
-    width: 100%; padding: 10px 14px; font-size: 13px;
-    border: 0.5px solid var(--border); border-radius: var(--radius);
-    background: var(--bg2); color: var(--text); cursor: pointer;
-    text-align: left; display: flex; justify-content: space-between; align-items: center;
-  }
-  .info-toggle:hover { border-color: var(--border2); }
-  .info-body {
-    background: var(--bg); border: 0.5px solid var(--border);
-    border-top: none; border-radius: 0 0 var(--radius) var(--radius);
-    padding: 12px 14px; display: none;
-  }
-  .info-body.open { display: block; }
-  .pv-row { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
-  .pv-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-  .pv-en { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-  .pv-badge {
-    display: inline-block; font-size: 10px; padding: 1px 6px;
-    border-radius: 100px; background: var(--warn-bg); color: var(--warn);
-    font-weight: 500; margin-left: 5px; vertical-align: middle;
-  }
-  .pv-ko { font-size: 13px; color: var(--text2); margin-bottom: 3px; }
-  .pv-ex { font-size: 12px; color: var(--info); font-style: italic; }
-  .word-row { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
-  .word-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-  .word-left { min-width: 110px; }
-  .word-en { font-size: 14px; font-weight: 600; color: var(--text); }
-  .word-pron { font-size: 12px; color: var(--info); margin-top: 2px; font-family: monospace; }
-  .word-pos { font-size: 10px; padding: 1px 6px; border-radius: 100px; background: var(--info-bg); color: var(--info); display: inline-block; margin-top: 3px; }
-  .word-ko { font-size: 13px; color: var(--text2); line-height: 1.6; }
+/* phrase card */
+.phrase-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.5rem 1.25rem;margin-bottom:.75rem;text-align:center}
+.phrase-count{font-size:11px;color:var(--text3);margin-bottom:10px}
 
-  .nav-btns { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 8px; margin-bottom: 6px; }
-  .btn {
-    padding: 14px; font-size: 14px;
-    border: 0.5px solid var(--border2);
-    border-radius: var(--radius-lg);
-    cursor: pointer; background: transparent;
-    color: var(--text); font-weight: 500;
-  }
-  .btn:hover { background: var(--bg2); }
-  .btn:active { opacity: .75; }
-  .btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .btn.primary:hover { opacity: .9; }
-  .btn.full { width: 100%; margin-bottom: 8px; }
-  .btn.danger { color: var(--danger); border-color: var(--danger-bg); }
+/* 소리블록 highlight */
+.sound-block{font-size:13px;font-weight:700;color:var(--teal);background:var(--teal-bg);padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:10px;letter-spacing:.3px}
 
-  .hint { font-size: 12px; color: var(--text3); text-align: center; margin-bottom: 6px; }
+.phrase-en{font-size:22px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:6px;word-break:break-word}
+.phrase-pron{font-size:13px;color:var(--info);font-family:monospace;margin-bottom:8px;line-height:1.5}
+.phrase-ko{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.phrase-ko.hide{opacity:0;user-select:none}
+.ko-btn{font-size:12px;color:var(--text3);cursor:pointer;border:none;background:none;padding:3px 8px;border-radius:var(--r)}
+.ko-btn:hover{background:var(--bg2)}
 
-  .done-screen { text-align: center; padding: 2.5rem 1rem; }
-  .done-big { font-size: 44px; margin-bottom: 1rem; }
-  .done-msg { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-  .done-sub { font-size: 14px; color: var(--text2); margin-bottom: 2rem; line-height: 1.7; }
-  .done-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+/* A/B dialog mode */
+.dialog-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:.75rem}
+.dialog-line{margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid var(--border)}
+.dialog-line:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.dialog-role{font-size:11px;font-weight:700;color:var(--teal);margin-bottom:4px;letter-spacing:.5px}
+.dialog-en{font-size:15px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:3px}
+.dialog-ko{font-size:13px;color:var(--text2);line-height:1.5}
+.dialog-ko.hide{opacity:0;user-select:none}
 
-  .loading-box { text-align: center; padding: 3rem 1rem; color: var(--text2); }
-  .spin {
-    display: inline-block; width: 22px; height: 22px;
-    border: 2px solid var(--border); border-top-color: var(--text);
-    border-radius: 50%; animation: spin .8s linear infinite;
-    vertical-align: middle; margin-right: 8px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* grammar tip */
+.tip-section{margin-bottom:.75rem}
+.tip-toggle{width:100%;padding:10px 14px;font-size:13px;border:0.5px solid var(--border);border-radius:var(--r);background:var(--amber-bg);color:var(--amber);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.tip-body{background:var(--bg);border:0.5px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);padding:12px 14px;display:none;font-size:13px;color:var(--text2);line-height:1.8}
+.tip-body.open{display:block}
+.tip-body strong{color:var(--text);font-weight:700}
+.tip-body .ex{color:var(--info);font-style:italic;margin-top:4px}
 
-  .setup-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-  .setup-desc { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 14px; }
-  .key-input {
-    width: 100%; padding: 10px 12px;
-    border: 0.5px solid var(--border2);
-    border-radius: var(--radius); font-size: 13px;
-    background: var(--bg); color: var(--text); margin-bottom: 10px;
-  }
-  .key-input:focus { outline: none; border-color: var(--text); }
-  .notice {
-    font-size: 12px; padding: 8px 12px; border-radius: var(--radius);
-    background: var(--info-bg); color: var(--info);
-    margin-bottom: 10px; line-height: 1.6;
-  }
-  .saved-badge {
-    display: inline-block; font-size: 11px; padding: 1px 8px;
-    border-radius: 100px; background: var(--success-bg); color: var(--success); margin-left: 6px;
-  }
-  .guide-box {
-    font-size: 12px; color: var(--text3); line-height: 1.9;
-    padding: 12px; background: var(--bg2); border-radius: var(--radius); margin-top: 12px;
-  }
-  .guide-box a { color: var(--info); text-decoration: none; }
+/* nav buttons */
+.nav{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;margin-bottom:8px}
+.btn{padding:14px;font-size:14px;border:0.5px solid var(--border2);border-radius:var(--rl);cursor:pointer;background:transparent;color:var(--text);font-weight:600}
+.btn:hover{background:var(--bg2)}
+.btn:active{opacity:.7;transform:scale(.98)}
+.btn.main{background:var(--teal);color:#fff;border-color:var(--teal);font-size:15px}
+.btn.main:hover{opacity:.92}
+.hint{font-size:11px;color:var(--text3);text-align:center;margin-bottom:6px}
+.sub-row{display:flex;justify-content:center;gap:8px;margin-top:6px}
+.sub-btn{padding:5px 14px;font-size:12px;border:0.5px solid var(--border);border-radius:100px;cursor:pointer;background:transparent;color:var(--text2)}
+.sub-btn:hover{background:var(--bg2)}
+
+/* done */
+.done-screen{text-align:center;padding:3rem 1rem}
+.done-icon{font-size:52px;margin-bottom:.75rem}
+.done-msg{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
+.done-sub{font-size:14px;color:var(--text2);margin-bottom:2rem;line-height:1.7}
+.done-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+
+/* loading */
+.loading-box{text-align:center;padding:3.5rem 1rem;color:var(--text2)}
+.spin{display:inline-block;width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mini-spin{width:14px;height:14px;border-width:2px;border-top-color:var(--text2)}
+
+/* setup */
+.card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:1rem}
+.card-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.card-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px}
+.key-inp{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--r);font-size:13px;background:var(--bg);color:var(--text);margin-bottom:10px}
+.key-inp:focus{outline:none;border-color:var(--teal)}
+.saved-pill{display:inline-block;font-size:11px;padding:1px 8px;border-radius:100px;background:var(--teal-bg);color:var(--teal);margin-left:6px;font-weight:600}
+.notice{font-size:12px;padding:8px 12px;border-radius:var(--r);background:var(--info-bg);color:var(--info);margin-bottom:10px;line-height:1.6}
+.guide{font-size:12px;color:var(--text3);line-height:1.9;padding:12px;background:var(--bg2);border-radius:var(--r);margin-top:10px}
+.guide a{color:var(--info);text-decoration:none}
+.btn-full{width:100%;margin-bottom:8px}
+.btn-danger{color:var(--danger);border-color:rgba(121,31,31,.25)}
 </style>
 </head>
 <body>
 <div class="wrap">
-
-  <div class="header">
+  <div class="hdr">
     <div>
-      <span class="app-title">Daily English</span>
-      <span class="date-badge" id="date-badge"></span>
+      <span class="logo">소리튠 <span>English</span></span>
+      <span class="date-pill" id="date-pill"></span>
     </div>
-    <button class="icon-btn" onclick="showSetup()">설정</button>
+    <button class="cfg-btn" onclick="showSetup()">설정</button>
   </div>
 
-  <div class="streak-row">
-    <div class="streak-item"><div class="streak-n" id="sn-today">0</div><div class="streak-l">오늘 완료</div></div>
-    <div class="streak-item"><div class="streak-n" id="sn-streak">0</div><div class="streak-l">연속 일수</div></div>
-    <div class="streak-item"><div class="streak-n" id="sn-total">0</div><div class="streak-l">전체 문장</div></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="sn-today">0</div><div class="stat-l">오늘 완료</div></div>
+    <div class="stat"><div class="stat-n" id="sn-streak">0</div><div class="stat-l">연속 일수</div></div>
+    <div class="stat"><div class="stat-n" id="sn-total">0</div><div class="stat-l">전체 문장</div></div>
+  </div>
+
+  <div class="mode-tabs">
+    <div class="mode-tab on" id="tab-repeat" onclick="setMode('repeat')">🔊 따라하기</div>
+    <div class="mode-tab" id="tab-dialog" onclick="setMode('dialog')">💬 대화</div>
+    <div class="mode-tab" id="tab-block" onclick="setMode('block')">🧩 소리블록</div>
   </div>
 
   <div id="root"></div>
-
 </div>
 
 <script>
-const TOPICS_POOL=[
+/* ── 소리튠 교재 기반 소리블록 데이터 ── */
+const SOUND_BLOCKS = [
+  "I'm on my way",
+  "I'm in the middle of",
+  "I'm about to",
+  "I'm good at",
+  "I'm ready to",
+  "I'm afraid that",
+  "I'm busy with",
+  "I'm sick of",
+  "be able to",
+  "be likely to",
+  "be aware of",
+  "There is / There are",
+  "There's no way",
+  "There's nothing",
+  "There seems to be",
+  "There needs to be",
+  "have a plan",
+  "have a good time",
+  "It's time to",
+  "It's no wonder",
+  "It's possible to",
+  "It's important to",
+  "It's not like",
+  "Is it possible to",
+];
+
+const TOPICS_POOL = [
   '아침에 일어나서 준비하기','지하철·버스 출퇴근','카페에서 주문하기','직장 동료와 대화',
   '점심 식사 고르기','마트에서 장보기','집에서 저녁 시간','몸이 아플 때',
   '날씨 이야기하기','주말 계획 세우기','친구에게 연락하기','온라인 쇼핑하기',
-  '약속 잡고 변경하기','음식 배달 주문하기','은행·ATM 이용하기','헬스장·운동하기',
-  '길 묻고 안내하기','호텔·숙소에서','병원·약국 가기','취미 이야기하기',
-  '영화·드라마 이야기','요리하면서 나누는 말','청소·집안일 하기','가족과 대화',
-  '직장 회의에서','이메일·메시지 쓰기','쇼핑몰에서 교환·반품','여행 준비하기',
+  '약속 잡고 변경하기','음식 배달 주문하기','병원·약국 가기','취미 이야기하기',
+  '영화·드라마 이야기','요리하기','청소·집안일','가족과 대화',
+  '직장 회의','길 묻고 안내하기','여행 준비하기','운동·헬스장',
 ];
 
-let clKey='', scenes=[], sceneIdx=0, phraseIdx=0;
-let todayDone=0, totalDone=0, koVisible=true, pvOpen=false, wordOpen=false;
-let generating=false;
+let clKey='', mode='repeat';
+let scene=null, phraseIdx=0;
+let todayDone=0, totalDone=0;
+let koVisible=true, tipOpen=false;
+let tipCache={};
 
+/* ── 저장소 ── */
 function lsGet(k){try{return localStorage.getItem(k);}catch{return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch{}}
 function lsDel(k){try{localStorage.removeItem(k);}catch{}}
 
-function todayStr(){
-  const d=new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-function todayKo(){
-  const d=new Date();
-  return `${d.getMonth()+1}/${d.getDate()} (${['일','월','화','수','목','금','토'][d.getDay()]})`;
-}
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function todayKo(){const d=new Date();return `${d.getMonth()+1}/${d.getDate()} (${['일','월','화','수','목','금','토'][d.getDay()]})`;}
 
 function loadStats(){
-  clKey=lsGet('dre_clkey')||'';
-  todayDone=parseInt(lsGet('dre_done_'+todayStr())||'0');
-  totalDone=parseInt(lsGet('dre_total')||'0');
-  document.getElementById('date-badge').textContent=todayKo();
-  updateStats();
+  clKey=lsGet('ste_key')||'';
+  mode=lsGet('ste_mode')||'repeat';
+  todayDone=parseInt(lsGet('ste_done_'+todayStr())||'0');
+  totalDone=parseInt(lsGet('ste_total')||'0');
+  document.getElementById('date-pill').textContent=todayKo();
+  updateStats(); updateModeTabs();
 }
-function saveStats(){
-  lsSet('dre_done_'+todayStr(), todayDone);
-  lsSet('dre_total', totalDone);
-}
+function saveStats(){lsSet('ste_done_'+todayStr(),todayDone);lsSet('ste_total',totalDone);}
 function updateStats(){
   document.getElementById('sn-today').textContent=todayDone;
   document.getElementById('sn-total').textContent=totalDone;
-  let streak=0;
-  const d=new Date();
+  let s=0; const d=new Date();
   for(let i=0;i<365;i++){
-    const dd=new Date(d); dd.setDate(d.getDate()-i);
-    const k=`dre_done_${dd.getFullYear()}-${String(dd.getMonth()+1).padStart(2,'0')}-${String(dd.getDate()).padStart(2,'0')}`;
-    if(parseInt(lsGet(k)||'0')>0) streak++; else break;
+    const dd=new Date(d);dd.setDate(d.getDate()-i);
+    const k=`ste_done_${dd.getFullYear()}-${String(dd.getMonth()+1).padStart(2,'0')}-${String(dd.getDate()).padStart(2,'0')}`;
+    if(parseInt(lsGet(k)||'0')>0)s++;else break;
   }
-  document.getElementById('sn-streak').textContent=streak;
+  document.getElementById('sn-streak').textContent=s;
 }
 
-function loadSavedScenes(){
-  try{const r=lsGet('dre_scenes_'+todayStr()); return r?JSON.parse(r):null;}catch{return null;}
+function setMode(m){
+  mode=m; lsSet('ste_mode',m);
+  updateModeTabs();
+  if(scene) render();
 }
-function saveScenes(data){ lsSet('dre_scenes_'+todayStr(), JSON.stringify(data)); }
-
-function getUsedTopics(){try{return JSON.parse(lsGet('dre_used')||'[]');}catch{return [];}}
-function markTopicsUsed(topics){
-  let used=getUsedTopics();
-  topics.forEach(t=>{if(!used.includes(t))used.push(t);});
-  if(used.length>TOPICS_POOL.length-5) used=used.slice(-20);
-  lsSet('dre_used', JSON.stringify(used));
-}
-function pickTopics(n=4){
-  const used=getUsedTopics();
-  const avail=TOPICS_POOL.filter(t=>!used.includes(t));
-  const pool=avail.length>=n?avail:TOPICS_POOL;
-  const tmp=[...pool], picked=[];
-  for(let i=0;i<Math.min(n,tmp.length);i++){
-    const idx=Math.floor(Math.random()*tmp.length);
-    picked.push(tmp.splice(idx,1)[0]);
-  }
-  return picked;
+function updateModeTabs(){
+  ['repeat','dialog','block'].forEach(m=>{
+    const el=document.getElementById('tab-'+m);
+    if(el) el.classList.toggle('on',m===mode);
+  });
 }
 
-async function generateScenes(){
+/* ── 주제 관리 ── */
+function getUsed(){try{return JSON.parse(lsGet('ste_used')||'[]');}catch{return[];}}
+function markUsed(t){let u=getUsed();if(!u.includes(t))u.push(t);if(u.length>TOPICS_POOL.length-5)u=u.slice(-20);lsSet('ste_used',JSON.stringify(u));}
+function pickTopic(){const u=getUsed();const a=TOPICS_POOL.filter(t=>!u.includes(t));const p=a.length>0?a:TOPICS_POOL;return p[Math.floor(Math.random()*p.length)];}
+
+function loadSaved(){try{const r=lsGet('ste_scene_'+todayStr());return r?JSON.parse(r):null;}catch{return null;}}
+function saveScene(d){lsSet('ste_scene_'+todayStr(),JSON.stringify(d));}
+
+/* ── API ── */
+async function callAPI(prompt, sys, maxTok){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:maxTok||1500,
+      system:sys||'Return only valid JSON. No markdown.',
+      messages:[{role:'user',content:prompt}]
+    })
+  });
+  const d=await res.json();
+  if(d.error)throw new Error(d.error.message);
+  return d.content?.[0]?.text||'';
+}
+
+/* ── 콘텐츠 생성 ── */
+async function generateScene(){
   if(!clKey){showSetup();return;}
-  if(generating)return;
-  generating=true;
-  const topics=pickTopics(1);
-  showLoading(`오늘의 주제로 문장을 만드는 중...\n${topics[0]}`);
-  const prompt=`주제: ${topics[0]}
+  const topic=pickTopic();
+  showLoading(`"${topic}" 소리블록 생성 중...`);
+
+  /* 소리블록 2개 랜덤 선택 */
+  const sb1=SOUND_BLOCKS[Math.floor(Math.random()*SOUND_BLOCKS.length)];
+  let sb2=SOUND_BLOCKS[Math.floor(Math.random()*SOUND_BLOCKS.length)];
+  while(sb2===sb1) sb2=SOUND_BLOCKS[Math.floor(Math.random()*SOUND_BLOCKS.length)];
+
+  const prompt=`주제: "${topic}"
+핵심 소리블록: "${sb1}", "${sb2}"
 
 위 주제로 일상 영어 회화 문장 10개를 만들어주세요.
-각 문장마다: 구동사 있으면 pvs에, 핵심단어(최대 2개)는 words에 발음기호 포함.
-짧고 자연스러운 구어체로. 반드시 JSON만 반환(마크다운 없이):
+- 소리블록을 자연스럽게 2~3개 문장에 포함
+- 나머지는 주제에 맞는 실용적인 구어체
+- 발음기호(IPA) 포함
+- A/B 대화쌍 2개 포함 (각각 A와 B 한 줄씩)
 
-[{"topic":"주제명","situation":"상황설명(한국어)","phrases":[{"en":"영어문장","ko":"한국어번역","pvs":[{"pv":"구동사","ko":"뜻","ex":"예문"}],"words":[{"w":"단어","p":"/발음기호/","pos":"품사","ko":"뜻"}]}]}]`;
+JSON만 반환:
+{
+  "topic":"${topic}",
+  "sound_blocks":["${sb1}","${sb2}"],
+  "situation":"한 줄 상황 설명",
+  "phrases":[{"en":"문장","pron":"/발음기호/","ko":"번역","block":"사용된소리블록또는null"}],
+  "dialogs":[{"a_en":"A 영어","a_ko":"A 한국어","b_en":"B 영어","b_ko":"B 한국어"}]
+}`;
+
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514', max_tokens:8000,
-        system:'English learning expert. Return ONLY valid JSON array. No markdown, no explanation, no extra text before or after JSON.',
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const d=await res.json();
-    const text=d.content?.[0]?.text||'';
-    let data;
-    const cleanText = text.replace(/```json|```/g,'').trim();
-    try {
-      data = JSON.parse(cleanText);
-    } catch(e1) {
-      // JSON이 잘린 경우 복구 시도
-      const bracketIdx = cleanText.lastIndexOf('}');
-      if(bracketIdx > 0) {
-        try {
-          const partial = cleanText.substring(0, bracketIdx+1) + ']}]';
-          data = JSON.parse(partial);
-        } catch(e2) {
-          throw new Error('응답이 너무 길어 잘렸습니다. 다시 시도해 주세요.');
-        }
-      } else {
-        throw new Error('JSON 파싱 오류. 다시 시도해 주세요.');
-      }
-    }
-    markTopicsUsed(topics);
-    saveScenes(data);
-    scenes=data; sceneIdx=0; phraseIdx=0;
-    buildNav(); render();
+    const text=await callAPI(prompt,'Return ONLY valid JSON object. No markdown, no extra text.',1800);
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim());
+    if(!data.phrases||!data.phrases.length)throw new Error('데이터 없음');
+    markUsed(topic);
+    saveScene(data);
+    scene=data; phraseIdx=0; tipCache={};
+    render();
   }catch(e){
     showError('생성 오류: '+e.message);
-  }finally{
-    generating=false;
   }
 }
 
+async function loadTip(idx){
+  if(tipCache[idx]!==undefined)return tipCache[idx];
+  const p=scene.phrases[idx];
+  const prompt=`영어 문장: "${p.en}"
+이 문장의 핵심 문법/표현 포인트 1가지를 설명해주세요.
+JSON만 반환: {"point":"표현 이름","explain":"한국어 설명 1~2줄","examples":["예문1","예문2"]}`;
+  try{
+    const text=await callAPI(prompt,'Return ONLY valid JSON. No markdown.',400);
+    const info=JSON.parse(text.replace(/```json|```/g,'').trim());
+    tipCache[idx]=info;
+    return info;
+  }catch{
+    tipCache[idx]=null;
+    return null;
+  }
+}
+
+/* ── UI ── */
 function showLoading(msg){
-  document.getElementById('root').innerHTML=`
-    <div class="loading-box">
-      <div style="margin-bottom:1rem"><span class="spin"></span></div>
-      <div style="font-size:14px;line-height:1.8;white-space:pre-line">${msg}</div>
-    </div>`;
+  document.getElementById('root').innerHTML=`<div class="loading-box"><div style="margin-bottom:1rem"><span class="spin"></span></div><div style="font-size:14px;line-height:1.8">${msg}</div></div>`;
 }
 function showError(msg){
-  document.getElementById('root').innerHTML=`
-    <div class="loading-box">
-      <div style="font-size:14px;color:var(--danger);margin-bottom:1rem">${msg}</div>
-      <button class="btn primary" style="padding:12px 24px" onclick="generateScenes()">다시 시도</button>
-    </div>`;
+  document.getElementById('root').innerHTML=`<div class="loading-box"><div style="font-size:14px;color:var(--danger);margin-bottom:1rem">${msg}</div><button class="btn main" style="padding:12px 28px" onclick="generateScene()">다시 시도</button></div>`;
 }
 
 function showSetup(){
-  const hasSaved=!!clKey;
+  const has=!!clKey;
   document.getElementById('root').innerHTML=`
     <div class="card">
-      <div class="setup-title">Claude API 키 설정</div>
-      <div class="setup-desc">
-        한 번 입력하면 이 기기에 영구 저장됩니다.<br>
-        브라우저를 닫아도, 앱을 업데이트해도 유지됩니다.
-      </div>
-      ${hasSaved?`<div class="notice">저장된 키 있음 <span class="saved-badge">저장됨</span><br>새 키로 교체하려면 아래에 입력하세요.</div>`:''}
-      <input type="password" class="key-input" id="key-inp" placeholder="sk-ant-...">
-      <button class="btn primary full" onclick="saveKey()">${hasSaved?'키 교체':'저장하고 시작'}</button>
-      ${hasSaved?`<button class="btn full" onclick="backToApp()">← 돌아가기</button>`:''}
-      ${hasSaved?`<button class="btn full danger" onclick="deleteKey()">저장된 키 삭제</button>`:''}
+      <div class="card-title">Claude API 키 설정</div>
+      <div class="card-desc">한 번 입력하면 이 기기에 영구 저장됩니다.<br>브라우저를 닫아도 유지됩니다.</div>
+      ${has?`<div class="notice">저장된 키 있음 <span class="saved-pill">저장됨</span></div>`:''}
+      <input type="password" class="key-inp" id="ki" placeholder="sk-ant-...">
+      <button class="btn main btn-full" onclick="saveKey()">${has?'키 교체':'저장하고 시작'}</button>
+      ${has?`<button class="btn btn-full" onclick="backToApp()">← 돌아가기</button>`:''}
+      ${has?`<button class="btn btn-full btn-danger" onclick="delKey()">저장된 키 삭제</button>`:''}
     </div>
-    <div class="guide-box">
-      API 키 발급 방법:<br>
-      1. <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> 접속 → 회원가입<br>
-      2. 왼쪽 메뉴 → API Keys → Create Key<br>
-      3. 키 복사 (sk-ant-... 형태, 딱 한 번만 보임)<br>
-      4. Billing → Add Credits → $5 충전 (한 번만)
+    <div class="guide">
+      API 키 발급: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
+      → API Keys → Create Key → 복사<br>
+      → Billing → Add Credits → $5 충전
     </div>`;
 }
 
 function saveKey(){
-  const v=document.getElementById('key-inp').value.trim();
+  const v=document.getElementById('ki').value.trim();
   if(!v){alert('API 키를 입력해 주세요.');return;}
-  clKey=v; lsSet('dre_clkey', clKey);
-  generateScenes();
+  clKey=v; lsSet('ste_key',clKey); generateScene();
 }
-function deleteKey(){
-  if(!confirm('저장된 API 키를 삭제할까요?'))return;
-  clKey=''; lsDel('dre_clkey'); showSetup();
-}
-function backToApp(){
-  if(scenes.length){buildNav();render();}
-  else generateScenes();
-}
-
-function buildNav(){
-  if(!scenes.length)return;
-  let nav=document.getElementById('scene-nav-el');
-  if(!nav){
-    nav=document.createElement('div');
-    nav.id='scene-nav-el';
-    nav.className='scene-nav';
-    document.getElementById('root').prepend(nav);
-  }
-  nav.innerHTML=scenes.map((s,i)=>
-    `<button class="nav-chip${i===sceneIdx?' on':''}" onclick="goScene(${i})">${s.topic}</button>`
-  ).join('')+
-  `<button class="nav-chip dashed" onclick="if(confirm('오늘 주제를 새로 만들까요?'))generateScenes()">새로 생성</button>`;
-}
-
-function goScene(i){sceneIdx=i;phraseIdx=0;pvOpen=false;wordOpen=false;buildNav();renderPhrase();}
+function delKey(){if(!confirm('키를 삭제할까요?'))return;clKey='';lsDel('ste_key');showSetup();}
+function backToApp(){if(scene)render();else generateScene();}
 
 function render(){
-  document.getElementById('root').innerHTML='<div id="scene-nav-el" class="scene-nav"></div><div id="phrase-area"></div>';
-  buildNav(); renderPhrase();
+  document.getElementById('root').innerHTML='<div id="content"></div>';
+  if(mode==='repeat') renderRepeat();
+  else if(mode==='dialog') renderDialog();
+  else renderBlock();
 }
 
-function renderPhrase(){
-  const s=scenes[sceneIdx], p=s.phrases[phraseIdx], total=s.phrases.length;
-  const dots=s.phrases.map((_,i)=>
-    `<div class="${i<phraseIdx?'dot done':i===phraseIdx?'dot current':'dot'}" onclick="jumpTo(${i})"></div>`
+/* ── 모드1: 따라하기 ── */
+function renderRepeat(){
+  if(!scene)return;
+  const p=scene.phrases[phraseIdx], total=scene.phrases.length;
+  const dots=scene.phrases.map((_,i)=>
+    `<div class="${i<phraseIdx?'dot done':i===phraseIdx?'dot cur':'dot'}" onclick="jump(${i})"></div>`
   ).join('');
-  const hasPV=p.pvs&&p.pvs.length>0, hasWord=p.words&&p.words.length>0;
-  const pvHtml=hasPV?`
-    <div class="info-section">
-      <button class="info-toggle" onclick="togglePV()">
-        <span>구동사 · 표현 (${p.pvs.length}개)</span><span>${pvOpen?'▲':'▼'}</span>
-      </button>
-      <div class="info-body${pvOpen?' open':''}" id="ib-pv">
-        ${p.pvs.map(pv=>`
-          <div class="pv-row">
-            <div class="pv-en">${pv.pv}<span class="pv-badge">구동사</span></div>
-            <div class="pv-ko">${pv.ko}</div>
-            <div class="pv-ex">"${pv.ex}"</div>
-          </div>`).join('')}
-      </div>
-    </div>`:'';
-  const wordHtml=hasWord?`
-    <div class="info-section">
-      <button class="info-toggle" onclick="toggleWord()">
-        <span>주요 단어 (${p.words.length}개)</span><span>${wordOpen?'▲':'▼'}</span>
-      </button>
-      <div class="info-body${wordOpen?' open':''}" id="ib-word">
-        ${p.words.map(w=>`
-          <div class="word-row">
-            <div class="word-left">
-              <div class="word-en">${w.w}</div>
-              <div class="word-pron">${w.p}</div>
-              <span class="word-pos">${w.pos}</span>
-            </div>
-            <div class="word-ko">${w.ko}</div>
-          </div>`).join('')}
-      </div>
-    </div>`:'';
 
-  const area=document.getElementById('phrase-area')||document.getElementById('root');
-  area.innerHTML=`
-    <div class="progress-dots">${dots}</div>
-    <div class="scene-card">
-      <div class="scene-label">오늘의 주제</div>
-      <div class="scene-topic">${s.topic}</div>
-      <div class="scene-situation">${s.situation}</div>
+  const tip=tipCache[phraseIdx];
+  const tipHtml=tip===undefined
+    ?`<div class="tip-section"><button class="tip-toggle" style="background:var(--bg2);color:var(--text2)"><span><span class="spin mini-spin"></span> 표현 팁 불러오는 중...</span></button></div>`
+    :tip
+    ?`<div class="tip-section">
+        <button class="tip-toggle" onclick="toggleTip()">
+          <span>💡 표현 포인트: ${tip.point}</span><span>${tipOpen?'▲':'▼'}</span>
+        </button>
+        <div class="tip-body${tipOpen?' open':''}" id="tip-body">
+          <strong>${tip.point}</strong><br>${tip.explain}
+          ${tip.examples?'<div class="ex">'+tip.examples.map(e=>`"${e}"`).join('<br>')+`</div>`:''}
+        </div>
+      </div>`
+    :'';
+
+  const blockBadge=p.block?`<div><span class="sound-block">${p.block}</span></div>`:'';
+
+  document.getElementById('content').innerHTML=`
+    <div class="dots">${dots}</div>
+    <div class="topic-card">
+      <div class="topic-tag">오늘의 주제</div>
+      <div class="topic-name">${scene.topic}</div>
+      <div class="topic-desc">${scene.situation||''}</div>
     </div>
-    <div class="phrase-box">
-      <div class="phrase-num">${phraseIdx+1} / ${total}</div>
+    <div class="phrase-card">
+      <div class="phrase-count">${phraseIdx+1} / ${total}</div>
+      ${blockBadge}
       <div class="phrase-en">${p.en}</div>
-      <div class="phrase-ko" style="${koVisible?'':'opacity:0;user-select:none'}">${p.ko}</div>
-      <button class="ko-toggle" onclick="toggleKo()">${koVisible?'한국어 숨기기':'한국어 보기'}</button>
+      ${p.pron?`<div class="phrase-pron">${p.pron}</div>`:''}
+      <div class="phrase-ko${koVisible?'':' hide'}">${p.ko}</div>
+      <button class="ko-btn" onclick="toggleKo()">${koVisible?'한국어 숨기기':'한국어 보기'}</button>
     </div>
-    ${pvHtml}${wordHtml}
-    ${!hasPV&&!hasWord?`<div style="font-size:12px;color:var(--text3);text-align:center;padding:4px 0;margin-bottom:.75rem">이 문장에는 별도 설명이 없어요</div>`:''}
-    <div class="hint">따라 말한 다음 → 눌러서 넘어가세요</div>
-    <div class="nav-btns">
+    ${tipHtml}
+    <div class="hint">소리 내어 따라 말하고 → 눌러서 넘어가세요</div>
+    <div class="nav">
       <button class="btn" onclick="prev()" ${phraseIdx>0?'':'style="opacity:.3;pointer-events:none"'}>← 이전</button>
-      <button class="btn primary" onclick="markAndNext()">따라 했어요 →</button>
-      <button class="btn" onclick="skipNext()">건너뛰기</button>
+      <button class="btn main" onclick="markNext()">따라 했어요 →</button>
+      <button class="btn" onclick="skip()">건너뛰기</button>
+    </div>
+    <div class="sub-row">
+      <button class="sub-btn" onclick="if(confirm('새 주제로 생성할까요?'))generateScene()">새 주제</button>
+    </div>`;
+
+  if(tip===undefined){
+    loadTip(phraseIdx).then(()=>renderRepeat());
+  }
+}
+
+/* ── 모드2: A/B 대화 ── */
+function renderDialog(){
+  if(!scene||!scene.dialogs||!scene.dialogs.length)return;
+  const dialogs=scene.dialogs;
+  const idx=phraseIdx%dialogs.length;
+  const d=dialogs[idx];
+  const total=dialogs.length;
+  const dots=dialogs.map((_,i)=>
+    `<div class="${i<idx?'dot done':i===idx?'dot cur':'dot'}" onclick="jump(${i})"></div>`
+  ).join('');
+
+  document.getElementById('content').innerHTML=`
+    <div class="dots">${dots}</div>
+    <div class="topic-card">
+      <div class="topic-tag">오늘의 대화 ${idx+1}/${total}</div>
+      <div class="topic-name">${scene.topic}</div>
+      <div class="topic-desc">${scene.situation||''}</div>
+    </div>
+    <div class="dialog-card">
+      <div class="dialog-line">
+        <div class="dialog-role">A</div>
+        <div class="dialog-en">${d.a_en}</div>
+        <div class="dialog-ko${koVisible?'':' hide'}">${d.a_ko}</div>
+      </div>
+      <div class="dialog-line">
+        <div class="dialog-role">B</div>
+        <div class="dialog-en">${d.b_en}</div>
+        <div class="dialog-ko${koVisible?'':' hide'}">${d.b_ko}</div>
+      </div>
+    </div>
+    <div class="hint">A, B 역할을 바꿔가며 소리 내어 읽어보세요</div>
+    <div class="nav">
+      <button class="btn" onclick="prev()" ${idx>0?'':'style="opacity:.3;pointer-events:none"'}>← 이전</button>
+      <button class="btn main" onclick="markNext()">완료 →</button>
+      <button class="btn" onclick="skip()">건너뛰기</button>
+    </div>
+    <div class="sub-row">
+      <button class="sub-btn" onclick="toggleKo()">${koVisible?'한국어 숨기기':'한국어 보기'}</button>
     </div>`;
 }
 
+/* ── 모드3: 소리블록 ── */
+function renderBlock(){
+  if(!scene)return;
+  const blocks=scene.sound_blocks||[];
+  const related=scene.phrases.filter(p=>p.block);
+
+  document.getElementById('content').innerHTML=`
+    <div class="topic-card">
+      <div class="topic-tag">오늘의 소리블록</div>
+      <div class="topic-name">${scene.topic}</div>
+    </div>
+    ${blocks.map(b=>`
+      <div class="phrase-card" style="text-align:left;padding:1.25rem">
+        <div class="sound-block" style="margin-bottom:12px">${b}</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.9">
+          ${related.filter(p=>p.block===b).map(p=>`
+            <div style="margin-bottom:8px">
+              <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px">${p.en}</div>
+              ${p.pron?`<div style="font-size:12px;color:var(--info);font-family:monospace;margin-bottom:2px">${p.pron}</div>`:''}
+              <div style="color:var(--text2)">${p.ko}</div>
+            </div>`).join('')}
+          ${related.filter(p=>p.block===b).length===0?`<div style="color:var(--text3);font-style:italic">오늘 문장에서 이 블록을 찾아보세요</div>`:''}
+        </div>
+      </div>`).join('')}
+    <div class="hint" style="margin-top:.5rem">소리블록을 입에 붙을 때까지 반복해서 말해보세요</div>
+    <div class="sub-row" style="margin-top:1rem">
+      <button class="sub-btn" onclick="setMode('repeat')">따라하기로 돌아가기</button>
+    </div>`;
+}
+
+/* ── 완료 화면 ── */
 function renderDone(){
-  const area=document.getElementById('phrase-area')||document.getElementById('root');
-  area.innerHTML=`
+  document.getElementById('content').innerHTML=`
     <div class="done-screen">
-      <div class="done-big">✓</div>
-      <div class="done-msg">${scenes[sceneIdx].topic} 완료!</div>
-      <div class="done-sub">수고하셨어요.<br>다른 주제도 해볼까요?</div>
+      <div class="done-icon">✓</div>
+      <div class="done-msg">${scene.topic}<br>완료!</div>
+      <div class="done-sub">오늘도 수고하셨어요.<br>소리블록이 조금씩 입에 붙고 있어요.</div>
       <div class="done-row">
-        <button class="btn primary" style="padding:14px 24px" onclick="goScene(${(sceneIdx+1)%scenes.length})">다음 주제 →</button>
-        <button class="btn" style="padding:14px 24px" onclick="goScene(${sceneIdx})">다시 하기</button>
+        <button class="btn main" style="padding:14px 28px" onclick="generateScene()">새 주제로 계속</button>
+        <button class="btn" style="padding:14px 28px" onclick="phraseIdx=0;render()">다시 하기</button>
       </div>
     </div>`;
 }
 
-function prev(){if(phraseIdx>0){phraseIdx--;pvOpen=false;wordOpen=false;renderPhrase();}}
-function skipNext(){phraseIdx++;pvOpen=false;wordOpen=false;if(phraseIdx>=scenes[sceneIdx].phrases.length)renderDone();else renderPhrase();}
-function markAndNext(){todayDone++;totalDone++;saveStats();updateStats();phraseIdx++;pvOpen=false;wordOpen=false;if(phraseIdx>=scenes[sceneIdx].phrases.length)renderDone();else renderPhrase();}
-function jumpTo(i){phraseIdx=i;pvOpen=false;wordOpen=false;renderPhrase();}
-function toggleKo(){koVisible=!koVisible;renderPhrase();}
-function togglePV(){pvOpen=!pvOpen;document.getElementById('ib-pv')?.classList.toggle('open',pvOpen);}
-function toggleWord(){wordOpen=!wordOpen;document.getElementById('ib-word')?.classList.toggle('open',wordOpen);}
+/* ── 액션 ── */
+function prev(){if(phraseIdx>0){phraseIdx--;tipOpen=false;render();}}
+function skip(){phraseIdx++;tipOpen=false;checkDone();}
+function markNext(){todayDone++;totalDone++;saveStats();updateStats();phraseIdx++;tipOpen=false;checkDone();}
+function checkDone(){
+  const total=mode==='dialog'?(scene.dialogs?.length||0):scene.phrases.length;
+  if(phraseIdx>=total)renderDone();else render();
+}
+function jump(i){phraseIdx=i;tipOpen=false;render();}
+function toggleKo(){koVisible=!koVisible;render();}
+function toggleTip(){tipOpen=!tipOpen;document.getElementById('tip-body')?.classList.toggle('open',tipOpen);}
 
+/* ── 시작 ── */
 loadStats();
-const saved=loadSavedScenes();
-if(saved&&saved.length){scenes=saved;buildNav();render();}
-else if(clKey){generateScenes();}
+const saved=loadSaved();
+if(saved&&saved.phrases&&saved.phrases.length){scene=saved;render();}
+else if(clKey){generateScene();}
 else{showSetup();}
 </script>
 </body>

@@ -327,7 +327,7 @@ async function generateScenes(){
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
         model:'claude-sonnet-4-20250514', max_tokens:6000,
         system:'영어 회화 학습 콘텐츠 전문가. 유효한 JSON 배열만 반환. 마크다운 없이.',

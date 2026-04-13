@@ -3,257 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>소리튠 Daily English</title>
+<title>구동사 English</title>
 <style>
 :root{
   --bg:#fff;--bg2:#f6f5f2;--bg3:#eeedea;
-  --text:#1a1a1a;--text2:#666;--text3:#999;
-  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.2);
-  --teal:#0f6e56;--teal-bg:#e1f5ee;--teal-light:#9fe1cb;
+  --text:#1a1a1a;--text2:#666;--text3:#aaa;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.22);
+  --green:#0f6e56;--green-bg:#e1f5ee;--green-light:#9fe1cb;
   --amber:#633806;--amber-bg:#faeeda;
-  --info:#0c447c;--info-bg:#e6f1fb;
+  --blue:#0c447c;--blue-bg:#e6f1fb;
   --danger:#791f1f;--r:10px;--rl:16px
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#1a1a1a;--bg2:#242424;--bg3:#2a2a2a;
-  --text:#f0f0f0;--text2:#aaa;--text3:#666;
+  --text:#f0f0f0;--text2:#aaa;--text3:#555;
   --border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);
-  --teal:#5dcaa5;--teal-bg:#085041;--teal-light:#1d9e75;
+  --green:#5dcaa5;--green-bg:#085041;--green-light:#1d9e75;
   --amber:#fac775;--amber-bg:#412402;
-  --info:#85b7eb;--info-bg:#042c53;
+  --blue:#85b7eb;--blue-bg:#042c53;
   --danger:#f09595
 }}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh}
 .wrap{max-width:480px;margin:0 auto;padding:1.25rem 1rem 5rem}
-
-/* header */
 .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
 .logo{font-size:17px;font-weight:700;color:var(--text)}
-.logo span{color:var(--teal)}
-.date-pill{font-size:11px;padding:2px 9px;border-radius:100px;background:var(--teal-bg);color:var(--teal);font-weight:600;margin-left:6px}
+.logo em{color:var(--green);font-style:normal}
+.date-pill{font-size:11px;padding:2px 9px;border-radius:100px;background:var(--green-bg);color:var(--green);font-weight:600;margin-left:6px}
 .cfg-btn{padding:6px 13px;font-size:12px;border:0.5px solid var(--border2);border-radius:100px;cursor:pointer;background:transparent;color:var(--text2)}
-
-/* stats */
 .stats{display:flex;gap:8px;margin-bottom:1.25rem}
 .stat{flex:1;background:var(--bg2);border-radius:var(--r);padding:10px 6px;text-align:center}
 .stat-n{font-size:22px;font-weight:700;color:var(--text)}
 .stat-l{font-size:10px;color:var(--text3);margin-top:1px}
-
-/* mode tabs */
-.mode-tabs{display:flex;gap:6px;margin-bottom:1.25rem}
-.mode-tab{flex:1;padding:8px 4px;font-size:12px;font-weight:600;border:0.5px solid var(--border);border-radius:var(--r);cursor:pointer;background:var(--bg2);color:var(--text2);text-align:center}
-.mode-tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
-
-/* progress */
 .dots{display:flex;justify-content:center;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer}
-.dot.done{background:var(--teal-light)}
-.dot.cur{background:var(--teal);width:20px;border-radius:4px}
+.dot.done{background:var(--green-light)}
+.dot.cur{background:var(--green);width:20px;border-radius:4px}
 
-/* topic card */
-.topic-card{background:var(--bg2);border-radius:var(--rl);padding:1rem 1.25rem;margin-bottom:1rem;text-align:center}
-.topic-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
-.topic-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
-.topic-desc{font-size:12px;color:var(--text2);line-height:1.5}
+/* 구동사 강조 카드 */
+.pv-hero{background:var(--green-bg);border-radius:var(--rl);padding:1.25rem;text-align:center;margin-bottom:1rem;border:0.5px solid var(--green-light)}
+.pv-label{font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--green);text-transform:uppercase;margin-bottom:6px}
+.pv-main{font-size:28px;font-weight:800;color:var(--green);margin-bottom:4px;letter-spacing:.5px}
+.pv-pron{font-size:13px;color:var(--green);font-family:monospace;margin-bottom:6px;opacity:.8}
+.pv-meaning{font-size:15px;color:var(--text);font-weight:600;margin-bottom:4px}
+.pv-nuance{font-size:12px;color:var(--text2);line-height:1.6}
 
-/* phrase card */
+/* 문장 카드 */
 .phrase-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.5rem 1.25rem;margin-bottom:.75rem;text-align:center}
 .phrase-count{font-size:11px;color:var(--text3);margin-bottom:10px}
-
-/* 소리블록 highlight */
-.sound-block{font-size:13px;font-weight:700;color:var(--teal);background:var(--teal-bg);padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:10px;letter-spacing:.3px}
-
+.phrase-context{font-size:11px;color:var(--text3);margin-bottom:8px;font-style:italic}
 .phrase-en{font-size:22px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:6px;word-break:break-word}
-.phrase-pron{font-size:13px;color:var(--info);font-family:monospace;margin-bottom:8px;line-height:1.5}
+.phrase-pron{font-size:12px;color:var(--blue);font-family:monospace;margin-bottom:8px}
+.pv-highlight{color:var(--green);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
 .phrase-ko{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px}
 .phrase-ko.hide{opacity:0;user-select:none}
 .ko-btn{font-size:12px;color:var(--text3);cursor:pointer;border:none;background:none;padding:3px 8px;border-radius:var(--r)}
-.ko-btn:hover{background:var(--bg2)}
 
-/* A/B dialog mode */
-.dialog-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:.75rem}
-.dialog-line{margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid var(--border)}
-.dialog-line:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-.dialog-role{font-size:11px;font-weight:700;color:var(--teal);margin-bottom:4px;letter-spacing:.5px}
-.dialog-en{font-size:15px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:3px}
-.dialog-ko{font-size:13px;color:var(--text2);line-height:1.5}
-.dialog-ko.hide{opacity:0;user-select:none}
+/* 활용 팁 */
+.usage-box{background:var(--amber-bg);border-radius:var(--r);padding:10px 14px;margin-bottom:.75rem;font-size:13px;line-height:1.7}
+.usage-label{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--amber);text-transform:uppercase;margin-bottom:4px}
+.usage-text{color:var(--text2)}
+.usage-text strong{color:var(--text)}
 
-/* grammar tip */
-.tip-section{margin-bottom:.75rem}
-.tip-toggle{width:100%;padding:10px 14px;font-size:13px;border:0.5px solid var(--border);border-radius:var(--r);background:var(--amber-bg);color:var(--amber);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;font-weight:600}
-.tip-body{background:var(--bg);border:0.5px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);padding:12px 14px;display:none;font-size:13px;color:var(--text2);line-height:1.8}
-.tip-body.open{display:block}
-.tip-body strong{color:var(--text);font-weight:700}
-.tip-body .ex{color:var(--info);font-style:italic;margin-top:4px}
-
-/* nav buttons */
+/* 네비 */
 .nav{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;margin-bottom:8px}
 .btn{padding:14px;font-size:14px;border:0.5px solid var(--border2);border-radius:var(--rl);cursor:pointer;background:transparent;color:var(--text);font-weight:600}
 .btn:hover{background:var(--bg2)}
 .btn:active{opacity:.7;transform:scale(.98)}
-.btn.main{background:var(--teal);color:#fff;border-color:var(--teal);font-size:15px}
-.btn.main:hover{opacity:.92}
+.btn.main{background:var(--green);color:#fff;border-color:var(--green);font-size:15px}
 .hint{font-size:11px;color:var(--text3);text-align:center;margin-bottom:6px}
 .sub-row{display:flex;justify-content:center;gap:8px;margin-top:6px}
 .sub-btn{padding:5px 14px;font-size:12px;border:0.5px solid var(--border);border-radius:100px;cursor:pointer;background:transparent;color:var(--text2)}
-.sub-btn:hover{background:var(--bg2)}
 
-/* done */
+/* 구동사 목록 탭 */
+.pv-list{margin-bottom:1rem}
+.pv-list-item{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.pv-list-item:hover{background:var(--bg2)}
+.pv-list-item.cur{border-color:var(--green);background:var(--green-bg)}
+.pv-name{font-size:15px;font-weight:700;color:var(--text)}
+.pv-list-item.cur .pv-name{color:var(--green)}
+.pv-ko-small{font-size:12px;color:var(--text2)}
+
 .done-screen{text-align:center;padding:3rem 1rem}
 .done-icon{font-size:52px;margin-bottom:.75rem}
 .done-msg{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
 .done-sub{font-size:14px;color:var(--text2);margin-bottom:2rem;line-height:1.7}
 .done-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-
-/* loading */
 .loading-box{text-align:center;padding:3.5rem 1rem;color:var(--text2)}
-.spin{display:inline-block;width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px}
+.spin{display:inline-block;width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.mini-spin{width:14px;height:14px;border-width:2px;border-top-color:var(--text2)}
-
-/* setup */
 .card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--rl);padding:1.25rem;margin-bottom:1rem}
 .card-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
 .card-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px}
 .key-inp{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--r);font-size:13px;background:var(--bg);color:var(--text);margin-bottom:10px}
-.key-inp:focus{outline:none;border-color:var(--teal)}
-.saved-pill{display:inline-block;font-size:11px;padding:1px 8px;border-radius:100px;background:var(--teal-bg);color:var(--teal);margin-left:6px;font-weight:600}
-.notice{font-size:12px;padding:8px 12px;border-radius:var(--r);background:var(--info-bg);color:var(--info);margin-bottom:10px;line-height:1.6}
+.key-inp:focus{outline:none;border-color:var(--green)}
+.saved-pill{display:inline-block;font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-bg);color:var(--green);margin-left:6px;font-weight:600}
+.notice{font-size:12px;padding:8px 12px;border-radius:var(--r);background:var(--blue-bg);color:var(--blue);margin-bottom:10px;line-height:1.6}
 .guide{font-size:12px;color:var(--text3);line-height:1.9;padding:12px;background:var(--bg2);border-radius:var(--r);margin-top:10px}
-.guide a{color:var(--info);text-decoration:none}
+.guide a{color:var(--blue);text-decoration:none}
 .btn-full{width:100%;margin-bottom:8px}
 .btn-danger{color:var(--danger);border-color:rgba(121,31,31,.25)}
+
+/* 탭 */
+.tabs{display:flex;gap:6px;margin-bottom:1.25rem}
+.tab{flex:1;padding:8px 4px;font-size:12px;font-weight:600;border:0.5px solid var(--border);border-radius:var(--r);cursor:pointer;background:var(--bg2);color:var(--text2);text-align:center}
+.tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hdr">
     <div>
-      <span class="logo">소리튠 <span>English</span></span>
+      <span class="logo"><em>구동사</em> English</span>
       <span class="date-pill" id="date-pill"></span>
     </div>
     <button class="cfg-btn" onclick="showSetup()">설정</button>
   </div>
-
   <div class="stats">
     <div class="stat"><div class="stat-n" id="sn-today">0</div><div class="stat-l">오늘 완료</div></div>
     <div class="stat"><div class="stat-n" id="sn-streak">0</div><div class="stat-l">연속 일수</div></div>
     <div class="stat"><div class="stat-n" id="sn-total">0</div><div class="stat-l">전체 문장</div></div>
   </div>
-
-  <div class="mode-tabs">
-    <div class="mode-tab on" id="tab-repeat" onclick="setMode('repeat')">🔊 따라하기</div>
-    <div class="mode-tab" id="tab-dialog" onclick="setMode('dialog')">💬 대화</div>
-    <div class="mode-tab" id="tab-block" onclick="setMode('block')">🧩 소리블록</div>
+  <div class="tabs">
+    <div class="tab on" id="tab-repeat" onclick="setTab('repeat')">따라하기</div>
+    <div class="tab" id="tab-list" onclick="setTab('list')">구동사 목록</div>
   </div>
-
   <div id="root"></div>
 </div>
 
 <script>
-/* ── 소리튠 교재 기반 소리블록 데이터 ── */
-const SOUND_BLOCKS = [
-  "I'm on my way",
-  "I'm in the middle of",
-  "I'm about to",
-  "I'm good at",
-  "I'm ready to",
-  "I'm afraid that",
-  "I'm busy with",
-  "I'm sick of",
-  "be able to",
-  "be likely to",
-  "be aware of",
-  "There is / There are",
-  "There's no way",
-  "There's nothing",
-  "There seems to be",
-  "There needs to be",
-  "have a plan",
-  "have a good time",
-  "It's time to",
-  "It's no wonder",
-  "It's possible to",
-  "It's important to",
-  "It's not like",
-  "Is it possible to",
+/* ── 구동사 데이터 풀 (스몰토크 최적화) ── */
+const PV_POOL = [
+  {pv:"wake up",   pron:"/weɪk ʌp/",   ko:"일어나다",        nuance:"침대에서 눈 뜨고 일어나는 것. 'get up'보다 더 자연스러운 표현"},
+  {pv:"get up",    pron:"/ɡɛt ʌp/",    ko:"(자리에서) 일어나다", nuance:"잠자리나 앉은 자리에서 몸을 일으키는 것"},
+  {pv:"show up",   pron:"/ʃoʊ ʌp/",    ko:"나타나다, 오다",   nuance:"약속 장소에 도착하거나 예상치 못하게 나타날 때"},
+  {pv:"pick up",   pron:"/pɪk ʌp/",    ko:"데리러 가다 / 집다", nuance:"차로 누군가를 태우러 가거나 물건을 집을 때"},
+  {pv:"drop off",  pron:"/drɒp ɒf/",   ko:"내려주다, 가져다주다", nuance:"차에서 내려주거나 물건을 잠깐 맡겨둘 때"},
+  {pv:"hang out",  pron:"/hæŋ aʊt/",   ko:"어울려 놀다, 시간 보내다", nuance:"친구와 특별한 계획 없이 편하게 시간 보낼 때"},
+  {pv:"catch up",  pron:"/kætʃ ʌp/",   ko:"따라잡다 / 밀린 얘기 나누다", nuance:"오랜만에 만나 그동안의 얘기를 나눌 때 많이 사용"},
+  {pv:"run into",  pron:"/rʌn ˈɪntʊ/", ko:"우연히 만나다",    nuance:"예상치 못하게 아는 사람을 마주쳤을 때"},
+  {pv:"come over", pron:"/kʌm ˈoʊvər/",ko:"(집에) 놀러 오다", nuance:"누군가의 집에 방문하자고 할 때 가장 많이 쓰는 표현"},
+  {pv:"go out",    pron:"/ɡoʊ aʊt/",   ko:"외출하다, 나가다", nuance:"집 밖으로 나가거나 데이트·외식하러 나갈 때"},
+  {pv:"eat out",   pron:"/iːt aʊt/",   ko:"외식하다",        nuance:"집에서 먹지 않고 식당에서 식사할 때"},
+  {pv:"order in",  pron:"/ˈɔːrdər ɪn/",ko:"배달 시키다",     nuance:"음식을 배달 주문해서 집에서 먹을 때"},
+  {pv:"stay in",   pron:"/steɪ ɪn/",   ko:"집에 있다",       nuance:"외출하지 않고 집에 있기로 할 때"},
+  {pv:"stay up",   pron:"/steɪ ʌp/",   ko:"늦게까지 깨 있다", nuance:"자지 않고 늦은 시간까지 깨어있을 때"},
+  {pv:"end up",    pron:"/ɛnd ʌp/",    ko:"결국 ~하게 되다", nuance:"의도치 않게 어떤 결과가 됐을 때. 'I ended up staying home'"},
+  {pv:"turn up",   pron:"/tɜːrn ʌp/",  ko:"나타나다 / 높이다", nuance:"예상치 못하게 나타나거나 볼륨·온도를 올릴 때"},
+  {pv:"turn down", pron:"/tɜːrn daʊn/",ko:"줄이다 / 거절하다", nuance:"볼륨·온도를 낮추거나 제안·초대를 거절할 때"},
+  {pv:"put off",   pron:"/pʊt ɒf/",    ko:"미루다",          nuance:"해야 할 일을 나중으로 미룰 때. 'procrastinate'의 구어체"},
+  {pv:"give up",   pron:"/ɡɪv ʌp/",    ko:"포기하다",        nuance:"시도를 그만두거나 포기할 때. 'Don't give up!'"},
+  {pv:"take off",  pron:"/teɪk ɒf/",   ko:"벗다 / 떠나다",   nuance:"옷을 벗거나 자리를 떠날 때 (비행기 이륙도 같은 표현)"},
+  {pv:"take out",  pron:"/teɪk aʊt/",  ko:"꺼내다 / 포장 주문", nuance:"가방에서 꺼내거나 포장해서 가져갈 때"},
+  {pv:"find out",  pron:"/faɪnd aʊt/", ko:"알아내다, 발견하다", nuance:"몰랐던 정보를 알게 됐을 때"},
+  {pv:"figure out",pron:"/ˈfɪɡjər aʊt/",ko:"이해하다, 파악하다", nuance:"복잡한 것을 이해하거나 해결책을 찾을 때"},
+  {pv:"work out",  pron:"/wɜːrk aʊt/", ko:"운동하다 / 잘 풀리다", nuance:"헬스장 운동 또는 상황이 잘 해결될 때"},
+  {pv:"work on",   pron:"/wɜːrk ɒn/",  ko:"~에 집중하다, ~를 하다", nuance:"특정 프로젝트나 일을 진행 중일 때"},
+  {pv:"come up",   pron:"/kʌm ʌp/",    ko:"생기다, 발생하다", nuance:"예상치 못한 일이 생겼을 때. 'Something came up'"},
+  {pv:"look up",   pron:"/lʊk ʌp/",    ko:"검색하다, 찾아보다", nuance:"인터넷이나 사전에서 정보를 찾을 때"},
+  {pv:"look into", pron:"/lʊk ˈɪntʊ/", ko:"조사하다, 알아보다", nuance:"어떤 문제나 정보를 더 깊이 알아볼 때"},
+  {pv:"get along", pron:"/ɡɛt əˈlɒŋ/", ko:"잘 지내다",       nuance:"사람들과 사이좋게 지낼 때. 'Do you get along with your boss?'"},
+  {pv:"get over",  pron:"/ɡɛt ˈoʊvər/",ko:"극복하다, 회복하다", nuance:"병이나 슬픈 일을 극복할 때"},
+  {pv:"get back",  pron:"/ɡɛt bæk/",   ko:"돌아오다 / 다시 연락하다", nuance:"어딘가에서 돌아오거나 나중에 연락하겠다고 할 때"},
+  {pv:"bring up",  pron:"/brɪŋ ʌp/",   ko:"꺼내다, 언급하다", nuance:"대화에서 어떤 주제나 이야기를 꺼낼 때"},
+  {pv:"cut down",  pron:"/kʌt daʊn/",  ko:"줄이다",          nuance:"음식·술·지출 등을 줄이려 할 때. 'cut down on coffee'"},
+  {pv:"fill in",   pron:"/fɪl ɪn/",    ko:"대신하다 / 채우다", nuance:"빠진 사람 대신 하거나 빈 칸을 채울 때"},
+  {pv:"run out",   pron:"/rʌn aʊt/",   ko:"다 떨어지다",     nuance:"물건이나 시간이 다 떨어졌을 때. 'We ran out of coffee'"},
 ];
 
-const TOPICS_POOL = [
-  '아침에 일어나서 준비하기','지하철·버스 출퇴근','카페에서 주문하기','직장 동료와 대화',
-  '점심 식사 고르기','마트에서 장보기','집에서 저녁 시간','몸이 아플 때',
-  '날씨 이야기하기','주말 계획 세우기','친구에게 연락하기','온라인 쇼핑하기',
-  '약속 잡고 변경하기','음식 배달 주문하기','병원·약국 가기','취미 이야기하기',
-  '영화·드라마 이야기','요리하기','청소·집안일','가족과 대화',
-  '직장 회의','길 묻고 안내하기','여행 준비하기','운동·헬스장',
-];
+let clKey='', curTab='repeat';
+let scene=null, pvIdx=0, phraseIdx=0;
+let todayDone=0, totalDone=0, koVisible=true;
 
-let clKey='', mode='repeat';
-let scene=null, phraseIdx=0;
-let todayDone=0, totalDone=0;
-let koVisible=true, tipOpen=false;
-let tipCache={};
-
-/* ── 저장소 ── */
 function lsGet(k){try{return localStorage.getItem(k);}catch{return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch{}}
 function lsDel(k){try{localStorage.removeItem(k);}catch{}}
-
 function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function todayKo(){const d=new Date();return `${d.getMonth()+1}/${d.getDate()} (${['일','월','화','수','목','금','토'][d.getDay()]})`;}
 
 function loadStats(){
-  clKey=lsGet('ste_key')||'';
-  mode=lsGet('ste_mode')||'repeat';
-  todayDone=parseInt(lsGet('ste_done_'+todayStr())||'0');
-  totalDone=parseInt(lsGet('ste_total')||'0');
+  clKey=lsGet('pve_key')||'';
+  todayDone=parseInt(lsGet('pve_done_'+todayStr())||'0');
+  totalDone=parseInt(lsGet('pve_total')||'0');
   document.getElementById('date-pill').textContent=todayKo();
-  updateStats(); updateModeTabs();
+  updateStats();
 }
-function saveStats(){lsSet('ste_done_'+todayStr(),todayDone);lsSet('ste_total',totalDone);}
+function saveStats(){lsSet('pve_done_'+todayStr(),todayDone);lsSet('pve_total',totalDone);}
 function updateStats(){
   document.getElementById('sn-today').textContent=todayDone;
   document.getElementById('sn-total').textContent=totalDone;
-  let s=0; const d=new Date();
+  let s=0;const d=new Date();
   for(let i=0;i<365;i++){
     const dd=new Date(d);dd.setDate(d.getDate()-i);
-    const k=`ste_done_${dd.getFullYear()}-${String(dd.getMonth()+1).padStart(2,'0')}-${String(dd.getDate()).padStart(2,'0')}`;
+    const k=`pve_done_${dd.getFullYear()}-${String(dd.getMonth()+1).padStart(2,'0')}-${String(dd.getDate()).padStart(2,'0')}`;
     if(parseInt(lsGet(k)||'0')>0)s++;else break;
   }
   document.getElementById('sn-streak').textContent=s;
 }
 
-function setMode(m){
-  mode=m; lsSet('ste_mode',m);
-  updateModeTabs();
-  if(scene) render();
-}
-function updateModeTabs(){
-  ['repeat','dialog','block'].forEach(m=>{
-    const el=document.getElementById('tab-'+m);
-    if(el) el.classList.toggle('on',m===mode);
-  });
+function setTab(t){
+  curTab=t;
+  ['repeat','list'].forEach(n=>document.getElementById('tab-'+n).classList.toggle('on',n===t));
+  if(t==='repeat') renderRepeat();
+  else renderList();
 }
 
-/* ── 주제 관리 ── */
-function getUsed(){try{return JSON.parse(lsGet('ste_used')||'[]');}catch{return[];}}
-function markUsed(t){let u=getUsed();if(!u.includes(t))u.push(t);if(u.length>TOPICS_POOL.length-5)u=u.slice(-20);lsSet('ste_used',JSON.stringify(u));}
-function pickTopic(){const u=getUsed();const a=TOPICS_POOL.filter(t=>!u.includes(t));const p=a.length>0?a:TOPICS_POOL;return p[Math.floor(Math.random()*p.length)];}
+function loadSaved(){try{const r=lsGet('pve_scene_'+todayStr());return r?JSON.parse(r):null;}catch{return null;}}
+function saveScene(d){lsSet('pve_scene_'+todayStr(),JSON.stringify(d));}
 
-function loadSaved(){try{const r=lsGet('ste_scene_'+todayStr());return r?JSON.parse(r):null;}catch{return null;}}
-function saveScene(d){lsSet('ste_scene_'+todayStr(),JSON.stringify(d));}
+function getUsedPVs(){try{return JSON.parse(lsGet('pve_used')||'[]');}catch{return[];}}
+function markUsed(pv){
+  let u=getUsedPVs();
+  if(!u.includes(pv))u.push(pv);
+  if(u.length>PV_POOL.length-5)u=u.slice(-25);
+  lsSet('pve_used',JSON.stringify(u));
+}
+function pickPVs(n){
+  const u=getUsedPVs();
+  const avail=PV_POOL.filter(p=>!u.includes(p.pv));
+  const pool=avail.length>=n?avail:PV_POOL;
+  const tmp=[...pool],picked=[];
+  for(let i=0;i<Math.min(n,tmp.length);i++){
+    const idx=Math.floor(Math.random()*tmp.length);
+    picked.push(tmp.splice(idx,1)[0]);
+  }
+  return picked;
+}
 
-/* ── API ── */
-async function callAPI(prompt, sys, maxTok){
+async function callAPI(prompt,sys,maxTok){
   const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({
       model:'claude-sonnet-4-20250514',
-      max_tokens:maxTok||1500,
-      system:sys||'Return only valid JSON. No markdown.',
+      max_tokens:maxTok||2000,
+      system:sys,
       messages:[{role:'user',content:prompt}]
     })
   });
@@ -262,71 +246,48 @@ async function callAPI(prompt, sys, maxTok){
   return d.content?.[0]?.text||'';
 }
 
-/* ── 콘텐츠 생성 ── */
-async function generateScene(){
+async function generate(){
   if(!clKey){showSetup();return;}
-  const topic=pickTopic();
-  showLoading(`"${topic}" 소리블록 생성 중...`);
+  const pvs=pickPVs(5);
+  showLoading('오늘의 구동사 스몰토크 생성 중...');
 
-  /* 소리블록 2개 랜덤 선택 */
-  const sb1=SOUND_BLOCKS[Math.floor(Math.random()*SOUND_BLOCKS.length)];
-  let sb2=SOUND_BLOCKS[Math.floor(Math.random()*SOUND_BLOCKS.length)];
-  while(sb2===sb1) sb2=SOUND_BLOCKS[Math.floor(Math.random()*SOUND_BLOCKS.length)];
+  const pvList=pvs.map(p=>`"${p.pv}" (${p.ko})`).join(', ');
+  const prompt=`오늘 배울 구동사: ${pvList}
 
-  const prompt=`주제: "${topic}"
-핵심 소리블록: "${sb1}", "${sb2}"
+각 구동사마다 실제 스몰토크에서 쓰는 짧고 자연스러운 예문 2개씩 만들어주세요.
 
-위 주제로 일상 영어 회화 문장 10개를 만들어주세요.
-- 소리블록을 자연스럽게 2~3개 문장에 포함
-- 나머지는 주제에 맞는 실용적인 구어체
-- 발음기호(IPA) 포함
-- A/B 대화쌍 2개 포함 (각각 A와 B 한 줄씩)
+규칙:
+- 문장은 짧고 쉽게 (중학생 수준)
+- 실제 대화에서 매일 쓰는 표현
+- 발음기호 포함
+- 구동사가 문장에서 어떤 부분인지 highlight_start/highlight_end 위치 포함
 
 JSON만 반환:
-{
-  "topic":"${topic}",
-  "sound_blocks":["${sb1}","${sb2}"],
-  "situation":"한 줄 상황 설명",
-  "phrases":[{"en":"문장","pron":"/발음기호/","ko":"번역","block":"사용된소리블록또는null"}],
-  "dialogs":[{"a_en":"A 영어","a_ko":"A 한국어","b_en":"B 영어","b_ko":"B 한국어"}]
-}`;
+{"pvs":[{"pv":"구동사","phrases":[{"en":"예문","pron":"/발음기호/","ko":"번역","context":"상황(한국어 5단어이내)","hs":숫자,"he":숫자}]}]}
+
+hs(highlight_start)와 he(highlight_end)는 en 문자열에서 구동사가 시작/끝나는 문자 인덱스.
+예: "I woke up late." 에서 "woke up"의 hs=2, he=9`;
 
   try{
-    const text=await callAPI(prompt,'Return ONLY valid JSON object. No markdown, no extra text.',1800);
+    const text=await callAPI(prompt,'Return ONLY valid JSON. No markdown.',2000);
     const data=JSON.parse(text.replace(/```json|```/g,'').trim());
-    if(!data.phrases||!data.phrases.length)throw new Error('데이터 없음');
-    markUsed(topic);
+    if(!data.pvs||!data.pvs.length)throw new Error('데이터 없음');
+    pvs.forEach(p=>markUsed(p.pv));
+    // pvPool 정보 merge
+    data.pvs=data.pvs.map((item,i)=>({...pvs[i],...item}));
     saveScene(data);
-    scene=data; phraseIdx=0; tipCache={};
-    render();
+    scene=data; pvIdx=0; phraseIdx=0;
+    renderRepeat();
   }catch(e){
     showError('생성 오류: '+e.message);
   }
 }
 
-async function loadTip(idx){
-  if(tipCache[idx]!==undefined)return tipCache[idx];
-  const p=scene.phrases[idx];
-  const prompt=`영어 문장: "${p.en}"
-이 문장의 핵심 문법/표현 포인트 1가지를 설명해주세요.
-JSON만 반환: {"point":"표현 이름","explain":"한국어 설명 1~2줄","examples":["예문1","예문2"]}`;
-  try{
-    const text=await callAPI(prompt,'Return ONLY valid JSON. No markdown.',400);
-    const info=JSON.parse(text.replace(/```json|```/g,'').trim());
-    tipCache[idx]=info;
-    return info;
-  }catch{
-    tipCache[idx]=null;
-    return null;
-  }
-}
-
-/* ── UI ── */
 function showLoading(msg){
   document.getElementById('root').innerHTML=`<div class="loading-box"><div style="margin-bottom:1rem"><span class="spin"></span></div><div style="font-size:14px;line-height:1.8">${msg}</div></div>`;
 }
 function showError(msg){
-  document.getElementById('root').innerHTML=`<div class="loading-box"><div style="font-size:14px;color:var(--danger);margin-bottom:1rem">${msg}</div><button class="btn main" style="padding:12px 28px" onclick="generateScene()">다시 시도</button></div>`;
+  document.getElementById('root').innerHTML=`<div class="loading-box"><div style="font-size:14px;color:var(--danger);margin-bottom:1rem">${msg}</div><button class="btn main" style="padding:12px 28px" onclick="generate()">다시 시도</button></div>`;
 }
 
 function showSetup(){
@@ -347,180 +308,115 @@ function showSetup(){
       → Billing → Add Credits → $5 충전
     </div>`;
 }
+function saveKey(){const v=document.getElementById('ki').value.trim();if(!v){alert('키를 입력해 주세요.');return;}clKey=v;lsSet('pve_key',clKey);generate();}
+function delKey(){if(!confirm('키를 삭제할까요?'))return;clKey='';lsDel('pve_key');showSetup();}
+function backToApp(){if(scene)renderRepeat();else generate();}
 
-function saveKey(){
-  const v=document.getElementById('ki').value.trim();
-  if(!v){alert('API 키를 입력해 주세요.');return;}
-  clKey=v; lsSet('ste_key',clKey); generateScene();
-}
-function delKey(){if(!confirm('키를 삭제할까요?'))return;clKey='';lsDel('ste_key');showSetup();}
-function backToApp(){if(scene)render();else generateScene();}
-
-function render(){
-  document.getElementById('root').innerHTML='<div id="content"></div>';
-  if(mode==='repeat') renderRepeat();
-  else if(mode==='dialog') renderDialog();
-  else renderBlock();
+function highlightPV(en,hs,he){
+  if(hs===undefined||he===undefined)return en;
+  try{return en.slice(0,hs)+`<span class="pv-highlight">${en.slice(hs,he)}</span>`+en.slice(he);}
+  catch{return en;}
 }
 
-/* ── 모드1: 따라하기 ── */
 function renderRepeat(){
-  if(!scene)return;
-  const p=scene.phrases[phraseIdx], total=scene.phrases.length;
-  const dots=scene.phrases.map((_,i)=>
-    `<div class="${i<phraseIdx?'dot done':i===phraseIdx?'dot cur':'dot'}" onclick="jump(${i})"></div>`
+  if(!scene){document.getElementById('root').innerHTML='';return;}
+  const totalPVs=scene.pvs.length;
+  const pv=scene.pvs[pvIdx];
+  if(!pv){renderDone();return;}
+  const phrases=pv.phrases||[];
+  const totalPhrases=phrases.length;
+  const p=phrases[phraseIdx]||phrases[0];
+
+  const pvDots=scene.pvs.map((_,i)=>
+    `<div class="${i<pvIdx?'dot done':i===pvIdx?'dot cur':'dot'}" onclick="jumpPV(${i})"></div>`
   ).join('');
 
-  const tip=tipCache[phraseIdx];
-  const tipHtml=tip===undefined
-    ?`<div class="tip-section"><button class="tip-toggle" style="background:var(--bg2);color:var(--text2)"><span><span class="spin mini-spin"></span> 표현 팁 불러오는 중...</span></button></div>`
-    :tip
-    ?`<div class="tip-section">
-        <button class="tip-toggle" onclick="toggleTip()">
-          <span>💡 표현 포인트: ${tip.point}</span><span>${tipOpen?'▲':'▼'}</span>
-        </button>
-        <div class="tip-body${tipOpen?' open':''}" id="tip-body">
-          <strong>${tip.point}</strong><br>${tip.explain}
-          ${tip.examples?'<div class="ex">'+tip.examples.map(e=>`"${e}"`).join('<br>')+`</div>`:''}
-        </div>
-      </div>`
-    :'';
+  document.getElementById('root').innerHTML=`
+    <div class="dots">${pvDots}</div>
 
-  const blockBadge=p.block?`<div><span class="sound-block">${p.block}</span></div>`:'';
-
-  document.getElementById('content').innerHTML=`
-    <div class="dots">${dots}</div>
-    <div class="topic-card">
-      <div class="topic-tag">오늘의 주제</div>
-      <div class="topic-name">${scene.topic}</div>
-      <div class="topic-desc">${scene.situation||''}</div>
+    <div class="pv-hero">
+      <div class="pv-label">오늘의 구동사 ${pvIdx+1}/${totalPVs}</div>
+      <div class="pv-main">${pv.pv}</div>
+      ${pv.pron?`<div class="pv-pron">${pv.pron}</div>`:''}
+      <div class="pv-meaning">${pv.ko}</div>
+      <div class="pv-nuance">${pv.nuance||''}</div>
     </div>
+
     <div class="phrase-card">
-      <div class="phrase-count">${phraseIdx+1} / ${total}</div>
-      ${blockBadge}
-      <div class="phrase-en">${p.en}</div>
+      <div class="phrase-count">예문 ${phraseIdx+1} / ${totalPhrases}</div>
+      ${p.context?`<div class="phrase-context">${p.context}</div>`:''}
+      <div class="phrase-en">${highlightPV(p.en,p.hs,p.he)}</div>
       ${p.pron?`<div class="phrase-pron">${p.pron}</div>`:''}
       <div class="phrase-ko${koVisible?'':' hide'}">${p.ko}</div>
       <button class="ko-btn" onclick="toggleKo()">${koVisible?'한국어 숨기기':'한국어 보기'}</button>
     </div>
-    ${tipHtml}
+
     <div class="hint">소리 내어 따라 말하고 → 눌러서 넘어가세요</div>
     <div class="nav">
-      <button class="btn" onclick="prev()" ${phraseIdx>0?'':'style="opacity:.3;pointer-events:none"'}>← 이전</button>
-      <button class="btn main" onclick="markNext()">따라 했어요 →</button>
-      <button class="btn" onclick="skip()">건너뛰기</button>
+      <button class="btn" onclick="prevPhrase()" ${pvIdx>0||phraseIdx>0?'':'style="opacity:.3;pointer-events:none"'}>← 이전</button>
+      <button class="btn main" onclick="nextPhrase()">따라 했어요 →</button>
+      <button class="btn" onclick="skipPhrase()">건너뛰기</button>
     </div>
     <div class="sub-row">
-      <button class="sub-btn" onclick="if(confirm('새 주제로 생성할까요?'))generateScene()">새 주제</button>
+      <button class="sub-btn" onclick="if(confirm('새 구동사로 생성할까요?'))generate()">새로 생성</button>
     </div>`;
-
-  if(tip===undefined){
-    loadTip(phraseIdx).then(()=>renderRepeat());
-  }
 }
 
-/* ── 모드2: A/B 대화 ── */
-function renderDialog(){
-  if(!scene||!scene.dialogs||!scene.dialogs.length)return;
-  const dialogs=scene.dialogs;
-  const idx=phraseIdx%dialogs.length;
-  const d=dialogs[idx];
-  const total=dialogs.length;
-  const dots=dialogs.map((_,i)=>
-    `<div class="${i<idx?'dot done':i===idx?'dot cur':'dot'}" onclick="jump(${i})"></div>`
-  ).join('');
-
-  document.getElementById('content').innerHTML=`
-    <div class="dots">${dots}</div>
-    <div class="topic-card">
-      <div class="topic-tag">오늘의 대화 ${idx+1}/${total}</div>
-      <div class="topic-name">${scene.topic}</div>
-      <div class="topic-desc">${scene.situation||''}</div>
-    </div>
-    <div class="dialog-card">
-      <div class="dialog-line">
-        <div class="dialog-role">A</div>
-        <div class="dialog-en">${d.a_en}</div>
-        <div class="dialog-ko${koVisible?'':' hide'}">${d.a_ko}</div>
+function renderList(){
+  if(!scene){document.getElementById('root').innerHTML=`<div class="loading-box" style="padding:2rem">오늘의 학습을 먼저 생성해 주세요.<br><br><button class="btn main" style="padding:12px 24px" onclick="setTab('repeat')">따라하기로 가기</button></div>`;return;}
+  const items=scene.pvs.map((pv,i)=>`
+    <div class="pv-list-item${i===pvIdx?' cur':''}" onclick="jumpPV(${i});setTab('repeat')">
+      <div>
+        <div class="pv-name">${pv.pv}</div>
+        <div class="pv-ko-small">${pv.ko} ${pv.pron?'· '+pv.pron:''}</div>
       </div>
-      <div class="dialog-line">
-        <div class="dialog-role">B</div>
-        <div class="dialog-en">${d.b_en}</div>
-        <div class="dialog-ko${koVisible?'':' hide'}">${d.b_ko}</div>
-      </div>
-    </div>
-    <div class="hint">A, B 역할을 바꿔가며 소리 내어 읽어보세요</div>
-    <div class="nav">
-      <button class="btn" onclick="prev()" ${idx>0?'':'style="opacity:.3;pointer-events:none"'}>← 이전</button>
-      <button class="btn main" onclick="markNext()">완료 →</button>
-      <button class="btn" onclick="skip()">건너뛰기</button>
-    </div>
-    <div class="sub-row">
-      <button class="sub-btn" onclick="toggleKo()">${koVisible?'한국어 숨기기':'한국어 보기'}</button>
-    </div>`;
+      <div style="font-size:12px;color:var(--text3)">${pv.phrases?.length||0}개 예문</div>
+    </div>`).join('');
+  document.getElementById('root').innerHTML=`
+    <div class="pv-list">${items}</div>
+    <div style="font-size:12px;color:var(--text3);text-align:center;margin-top:8px">항목을 누르면 해당 구동사로 이동합니다</div>`;
 }
 
-/* ── 모드3: 소리블록 ── */
-function renderBlock(){
-  if(!scene)return;
-  const blocks=scene.sound_blocks||[];
-  const related=scene.phrases.filter(p=>p.block);
-
-  document.getElementById('content').innerHTML=`
-    <div class="topic-card">
-      <div class="topic-tag">오늘의 소리블록</div>
-      <div class="topic-name">${scene.topic}</div>
-    </div>
-    ${blocks.map(b=>`
-      <div class="phrase-card" style="text-align:left;padding:1.25rem">
-        <div class="sound-block" style="margin-bottom:12px">${b}</div>
-        <div style="font-size:13px;color:var(--text2);line-height:1.9">
-          ${related.filter(p=>p.block===b).map(p=>`
-            <div style="margin-bottom:8px">
-              <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px">${p.en}</div>
-              ${p.pron?`<div style="font-size:12px;color:var(--info);font-family:monospace;margin-bottom:2px">${p.pron}</div>`:''}
-              <div style="color:var(--text2)">${p.ko}</div>
-            </div>`).join('')}
-          ${related.filter(p=>p.block===b).length===0?`<div style="color:var(--text3);font-style:italic">오늘 문장에서 이 블록을 찾아보세요</div>`:''}
-        </div>
-      </div>`).join('')}
-    <div class="hint" style="margin-top:.5rem">소리블록을 입에 붙을 때까지 반복해서 말해보세요</div>
-    <div class="sub-row" style="margin-top:1rem">
-      <button class="sub-btn" onclick="setMode('repeat')">따라하기로 돌아가기</button>
-    </div>`;
-}
-
-/* ── 완료 화면 ── */
 function renderDone(){
-  document.getElementById('content').innerHTML=`
+  document.getElementById('root').innerHTML=`
     <div class="done-screen">
       <div class="done-icon">✓</div>
-      <div class="done-msg">${scene.topic}<br>완료!</div>
-      <div class="done-sub">오늘도 수고하셨어요.<br>소리블록이 조금씩 입에 붙고 있어요.</div>
+      <div class="done-msg">오늘 구동사<br>완료!</div>
+      <div class="done-sub">${scene.pvs.map(p=>`<strong>${p.pv}</strong>`).join(' · ')}<br><br>내일 또 새로운 구동사로 만나요.</div>
       <div class="done-row">
-        <button class="btn main" style="padding:14px 28px" onclick="generateScene()">새 주제로 계속</button>
-        <button class="btn" style="padding:14px 28px" onclick="phraseIdx=0;render()">다시 하기</button>
+        <button class="btn main" style="padding:14px 24px" onclick="generate()">새 구동사 더 보기</button>
+        <button class="btn" style="padding:14px 24px" onclick="pvIdx=0;phraseIdx=0;renderRepeat()">다시 하기</button>
       </div>
     </div>`;
 }
 
-/* ── 액션 ── */
-function prev(){if(phraseIdx>0){phraseIdx--;tipOpen=false;render();}}
-function skip(){phraseIdx++;tipOpen=false;checkDone();}
-function markNext(){todayDone++;totalDone++;saveStats();updateStats();phraseIdx++;tipOpen=false;checkDone();}
-function checkDone(){
-  const total=mode==='dialog'?(scene.dialogs?.length||0):scene.phrases.length;
-  if(phraseIdx>=total)renderDone();else render();
+function prevPhrase(){
+  if(phraseIdx>0){phraseIdx--;} 
+  else if(pvIdx>0){pvIdx--;phraseIdx=(scene.pvs[pvIdx].phrases?.length||1)-1;}
+  renderRepeat();
 }
-function jump(i){phraseIdx=i;tipOpen=false;render();}
-function toggleKo(){koVisible=!koVisible;render();}
-function toggleTip(){tipOpen=!tipOpen;document.getElementById('tip-body')?.classList.toggle('open',tipOpen);}
+function nextPhrase(){
+  todayDone++;totalDone++;saveStats();updateStats();
+  const phrases=scene.pvs[pvIdx].phrases||[];
+  if(phraseIdx<phrases.length-1){phraseIdx++;}
+  else if(pvIdx<scene.pvs.length-1){pvIdx++;phraseIdx=0;}
+  else{renderDone();return;}
+  renderRepeat();
+}
+function skipPhrase(){
+  const phrases=scene.pvs[pvIdx].phrases||[];
+  if(phraseIdx<phrases.length-1){phraseIdx++;}
+  else if(pvIdx<scene.pvs.length-1){pvIdx++;phraseIdx=0;}
+  else{renderDone();return;}
+  renderRepeat();
+}
+function jumpPV(i){pvIdx=i;phraseIdx=0;renderRepeat();}
+function toggleKo(){koVisible=!koVisible;renderRepeat();}
 
-/* ── 시작 ── */
 loadStats();
 const saved=loadSaved();
-if(saved&&saved.phrases&&saved.phrases.length){scene=saved;render();}
-else if(clKey){generateScene();}
+if(saved&&saved.pvs&&saved.pvs.length){scene=saved;renderRepeat();}
+else if(clKey){generate();}
 else{showSetup();}
 </script>
 </body>

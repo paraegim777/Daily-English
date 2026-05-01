@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>오늘의 영어</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f3ee;color:#1a1a1a;min-height:100vh}
+@media(prefers-color-scheme:dark){body{background:#1a1a1a;color:#f0f0f0}}
+.app{max-width:400px;margin:0 auto;padding:1.25rem 1rem 3rem}
+.top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem}
+.brand{font-size:16px;font-weight:700;color:#1a1a1a}
+@media(prefers-color-scheme:dark){.brand{color:#f0f0f0}}
+.brand em{color:#d4537e;font-style:normal}
+.cfg-btn{padding:5px 12px;font-size:12px;border:0.5px solid rgba(0,0,0,0.2);border-radius:100px;cursor:pointer;background:transparent;color:#666}
+@media(prefers-color-scheme:dark){.cfg-btn{border-color:rgba(255,255,255,0.2);color:#aaa}}
+
+/* stats */
+.stats{display:flex;gap:8px;margin-bottom:1.1rem}
+.stat{flex:1;background:#faf9f6;border-radius:10px;padding:9px 6px;text-align:center;border:0.5px solid rgba(0,0,0,0.07)}
+@media(prefers-color-scheme:dark){.stat{background:#242424;border-color:rgba(255,255,255,0.07)}}
+.stat-n{font-size:19px;font-weight:700;color:#1a1a1a}
+@media(prefers-color-scheme:dark){.stat-n{color:#f0f0f0}}
+.stat-l{font-size:10px;color:#aaa;margin-top:1px}
+
+/* progress */
+.prog-wrap{margin-bottom:1rem}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.prog-text{font-size:12px;color:#aaa}
+.prog-bar{height:5px;background:rgba(0,0,0,0.08);border-radius:3px;overflow:hidden}
+@media(prefers-color-scheme:dark){.prog-bar{background:rgba(255,255,255,0.1)}}
+.prog-fill{height:100%;background:#d4537e;border-radius:3px;transition:width .3s}
+
+/* dots */
+.dots{display:flex;justify-content:center;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,0.1);cursor:pointer;transition:all .15s}
+@media(prefers-color-scheme:dark){.dot{background:rgba(255,255,255,0.15)}}
+.dot.seen{background:#f4c0d1}
+.dot.cur{background:#d4537e;width:20px;border-radius:4px}
+
+/* main card */
+.card{background:#fff;border:0.5px solid rgba(0,0,0,0.09);border-radius:20px;padding:1.6rem 1.4rem 1.4rem;margin-bottom:.75rem}
+@media(prefers-color-scheme:dark){.card{background:#242424;border-color:rgba(255,255,255,0.09)}}
+.card-top{text-align:center;margin-bottom:1rem}
+.char-area{width:90px;height:90px;margin:0 auto .9rem}
+.char-area svg{width:100%;height:100%}
+.tag{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#aaa;margin-bottom:.4rem}
+.expression{font-size:21px;font-weight:700;color:#1a1a1a;line-height:1.4;margin-bottom:.7rem;word-break:break-word}
+@media(prefers-color-scheme:dark){.expression{color:#f0f0f0}}
+.ko-box{background:#f5f3ee;border-radius:12px;padding:.7rem 1.1rem;margin-bottom:.6rem;text-align:left}
+@media(prefers-color-scheme:dark){.ko-box{background:#2e2e2e}}
+.ko-text{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:.3rem}
+@media(prefers-color-scheme:dark){.ko-text{color:#f0f0f0}}
+.nuance{font-size:12px;color:#666;line-height:1.6}
+@media(prefers-color-scheme:dark){.nuance{color:#aaa}}
+
+/* example */
+.ex-box{background:#e6f1fb;border-radius:10px;padding:.65rem 1rem;margin-bottom:.75rem}
+.ex-label{font-size:10px;font-weight:700;color:#0c447c;letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px}
+.ex-en{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:2px}
+@media(prefers-color-scheme:dark){.ex-en{color:#f0f0f0}}
+.ex-ko{font-size:12px;color:#666}
+@media(prefers-color-scheme:dark){.ex-ko{color:#aaa}}
+
+/* vocab */
+.vocab-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#aaa;margin-bottom:6px}
+.vocab-item{background:#faf9f6;border-radius:8px;padding:8px 11px;margin-bottom:5px;display:flex;align-items:flex-start;gap:9px}
+@media(prefers-color-scheme:dark){.vocab-item{background:#1e1e1e}}
+.vocab-item:last-child{margin-bottom:0}
+.vbadge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;white-space:nowrap;margin-top:1px;flex-shrink:0}
+.vb-word{background:#faeeda;color:#633806}
+.vb-idiom{background:#eaf3de;color:#3b6d11}
+.v-en{font-size:13px;font-weight:600;color:#1a1a1a}
+@media(prefers-color-scheme:dark){.v-en{color:#f0f0f0}}
+.v-pron{font-size:11px;color:#185fa5;font-family:monospace;margin-top:1px}
+.v-ko{font-size:12px;color:#666;margin-top:2px}
+@media(prefers-color-scheme:dark){.v-ko{color:#aaa}}
+
+/* nav */
+.btn-row{display:flex;gap:8px;margin-bottom:7px}
+.btn{flex:1;padding:13px;font-size:13px;font-weight:600;border:0.5px solid rgba(0,0,0,0.15);border-radius:14px;cursor:pointer;background:transparent;color:#1a1a1a}
+@media(prefers-color-scheme:dark){.btn{border-color:rgba(255,255,255,0.15);color:#f0f0f0}}
+.btn:hover{background:rgba(0,0,0,0.04)}
+.btn:active{opacity:.7;transform:scale(.98)}
+.btn.primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+@media(prefers-color-scheme:dark){.btn.primary{background:#f0f0f0;color:#1a1a1a}}
+.btn.pink{background:#d4537e;color:#fff;border-color:#d4537e}
+.btn.star{color:#ba7517}
+.hint{font-size:11px;color:#aaa;text-align:center;margin-top:5px}
+
+/* loading */
+.loading-card{background:#fff;border:0.5px solid rgba(0,0,0,0.09);border-radius:20px;padding:3rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;margin-bottom:.75rem;min-height:280px}
+@media(prefers-color-scheme:dark){.loading-card{background:#242424}}
+.spin{width:26px;height:26px;border:2px solid rgba(0,0,0,0.1);border-top-color:#d4537e;border-radius:50%;animation:spin .8s linear infinite}
+@media(prefers-color-scheme:dark){.spin{border-color:rgba(255,255,255,0.1);border-top-color:#d4537e}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-msg{font-size:14px;color:#666}
+.err-msg{font-size:13px;color:#a32d2d;margin-bottom:1rem;line-height:1.6;text-align:center}
+
+/* setup */
+.setup-card{background:#fff;border:0.5px solid rgba(0,0,0,0.09);border-radius:20px;padding:1.5rem;margin-bottom:.75rem}
+@media(prefers-color-scheme:dark){.setup-card{background:#242424}}
+.s-title{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+@media(prefers-color-scheme:dark){.s-title{color:#f0f0f0}}
+.s-desc{font-size:13px;color:#666;line-height:1.7;margin-bottom:14px}
+.s-notice{font-size:12px;padding:8px 10px;border-radius:8px;background:#e6f1fb;color:#0c447c;margin-bottom:10px;line-height:1.6}
+.key-inp{width:100%;padding:10px 12px;border:0.5px solid rgba(0,0,0,0.2);border-radius:10px;font-size:13px;background:#fff;color:#1a1a1a;margin-bottom:10px}
+@media(prefers-color-scheme:dark){.key-inp{background:#1a1a1a;color:#f0f0f0;border-color:rgba(255,255,255,0.2)}}
+.key-inp:focus{outline:none;border-color:#d4537e}
+.guide{font-size:12px;color:#aaa;line-height:1.9;padding:12px;background:#faf9f6;border-radius:10px;margin-top:8px}
+@media(prefers-color-scheme:dark){.guide{background:#1e1e1e}}
+.guide a{color:#185fa5;text-decoration:none}
+
+/* history */
+.hi-list{margin-bottom:1rem}
+.hi-day{margin-bottom:12px}
+.hi-date-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:.4px;margin-bottom:6px}
+.hi-item{background:#fff;border:0.5px solid rgba(0,0,0,0.07);border-radius:12px;padding:10px 13px;margin-bottom:5px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+@media(prefers-color-scheme:dark){.hi-item{background:#242424;border-color:rgba(255,255,255,0.07)}}
+.hi-item:hover{background:#faf9f6}
+@media(prefers-color-scheme:dark){.hi-item:hover{background:#2e2e2e}}
+.hi-en{font-size:14px;font-weight:600;color:#1a1a1a}
+@media(prefers-color-scheme:dark){.hi-en{color:#f0f0f0}}
+.hi-ko{font-size:12px;color:#666}
+.hi-star{font-size:14px;color:#ba7517}
+.section-title{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:12px}
+@media(prefers-color-scheme:dark){.section-title{color:#f0f0f0}}
+
+/* done */
+.done-card{background:#fff;border:0.5px solid rgba(0,0,0,0.09);border-radius:20px;padding:2.5rem 1.5rem;text-align:center;margin-bottom:.75rem}
+@media(prefers-color-scheme:dark){.done-card{background:#242424}}
+.done-icon{font-size:48px;margin-bottom:.75rem}
+.done-msg{font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.done-msg{color:#f0f0f0}}
+.done-sub{font-size:14px;color:#666;line-height:1.7;margin-bottom:1.5rem}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top-row">
+    <span class="brand">오늘의 <em>영어</em></span>
+    <button class="cfg-btn" onclick="showSetup()">설정</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="sn-streak">0</div><div class="stat-l">연속 학습일</div></div>
+    <div class="stat"><div class="stat-n" id="sn-today">0</div><div class="stat-l">오늘 완료</div></div>
+    <div class="stat"><div class="stat-n" id="sn-total">0</div><div class="stat-l">누적 표현</div></div>
+  </div>
+  <div id="root"></div>
+</div>
+
+<script>
+const CHARS=[
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#FAC775"/><circle cx="60" cy="56" r="30" fill="#FAC775"/><ellipse cx="46" cy="53" rx="7" ry="8" fill="#fff"/><ellipse cx="74" cy="53" rx="7" ry="8" fill="#fff"/><circle cx="46" cy="54" r="4" fill="#2C2C2A"/><circle cx="74" cy="54" r="4" fill="#2C2C2A"/><circle cx="47" cy="52" r="1.5" fill="#fff"/><circle cx="75" cy="52" r="1.5" fill="#fff"/><path d="M50 67 Q60 75 70 67" stroke="#2C2C2A" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="44" cy="65" rx="6" ry="4" fill="#F0997B" opacity=".6"/><ellipse cx="76" cy="65" rx="6" ry="4" fill="#F0997B" opacity=".6"/><ellipse cx="46" cy="43" rx="9" ry="5" fill="#EF9F27" transform="rotate(-20,46,43)"/><ellipse cx="74" cy="43" rx="9" ry="5" fill="#EF9F27" transform="rotate(20,74,43)"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#9FE1CB"/><circle cx="60" cy="56" r="30" fill="#9FE1CB"/><ellipse cx="47" cy="52" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="52" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="53" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="53" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="51" r="1.5" fill="#fff"/><circle cx="74" cy="51" r="1.5" fill="#fff"/><path d="M52 66 Q60 73 68 66" stroke="#2C2C2A" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="64" rx="5" ry="3.5" fill="#5DCAA5" opacity=".6"/><ellipse cx="75" cy="64" rx="5" ry="3.5" fill="#5DCAA5" opacity=".6"/><circle cx="60" cy="28" r="10" fill="#1D9E75"/><ellipse cx="54" cy="22" rx="5" ry="7" fill="#1D9E75" transform="rotate(-30,54,22)"/><ellipse cx="66" cy="22" rx="5" ry="7" fill="#1D9E75" transform="rotate(30,66,22)"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#F5C4B3"/><circle cx="60" cy="56" r="30" fill="#F5C4B3"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="52" r="1.5" fill="#fff"/><circle cx="74" cy="52" r="1.5" fill="#fff"/><path d="M52 67 Q60 74 68 67" stroke="#2C2C2A" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="65" rx="6" ry="4" fill="#D85A30" opacity=".5"/><ellipse cx="75" cy="65" rx="6" ry="4" fill="#D85A30" opacity=".5"/><path d="M38 38 Q60 20 82 38" stroke="#F0997B" stroke-width="12" fill="none" stroke-linecap="round"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#CECBF6"/><circle cx="60" cy="56" r="30" fill="#CECBF6"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="52" r="1.5" fill="#fff"/><circle cx="74" cy="52" r="1.5" fill="#fff"/><path d="M52 67 Q60 74 68 67" stroke="#2C2C2A" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="65" rx="5" ry="3.5" fill="#7F77DD" opacity=".5"/><ellipse cx="75" cy="65" rx="5" ry="3.5" fill="#7F77DD" opacity=".5"/><rect x="48" y="20" width="24" height="16" rx="4" fill="#534AB7"/><rect x="52" y="24" width="16" height="8" rx="2" fill="#CECBF6"/><rect x="58" y="14" width="4" height="8" rx="2" fill="#534AB7"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#F4C0D1"/><circle cx="60" cy="56" r="30" fill="#F4C0D1"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="52" r="1.5" fill="#fff"/><circle cx="74" cy="52" r="1.5" fill="#fff"/><path d="M52 66 Q60 73 68 66" stroke="#2C2C2A" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="64" rx="5" ry="3.5" fill="#D4537E" opacity=".5"/><ellipse cx="75" cy="64" rx="5" ry="3.5" fill="#D4537E" opacity=".5"/><path d="M52 38 Q60 28 68 38 Q72 30 60 24 Q48 30 52 38Z" fill="#D4537E"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#C0DD97"/><circle cx="60" cy="56" r="30" fill="#C0DD97"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="52" r="1.5" fill="#fff"/><circle cx="74" cy="52" r="1.5" fill="#fff"/><path d="M52 66 Q60 73 68 66" stroke="#2C2C2A" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="64" rx="5" ry="3.5" fill="#639922" opacity=".5"/><ellipse cx="75" cy="64" rx="5" ry="3.5" fill="#639922" opacity=".5"/><ellipse cx="60" cy="30" rx="16" ry="10" fill="#639922"/><ellipse cx="48" cy="26" rx="10" ry="7" fill="#639922"/><ellipse cx="72" cy="26" rx="10" ry="7" fill="#639922"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#B5D4F4"/><circle cx="60" cy="56" r="30" fill="#B5D4F4"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="52" r="1.5" fill="#fff"/><circle cx="74" cy="52" r="1.5" fill="#fff"/><path d="M52 67 Q60 75 68 67" stroke="#2C2C2A" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="65" rx="6" ry="4" fill="#185fa5" opacity=".4"/><ellipse cx="75" cy="65" rx="6" ry="4" fill="#185fa5" opacity=".4"/><polygon points="60,14 68,30 52,30" fill="#185fa5"/><rect x="56" y="30" width="8" height="10" rx="1" fill="#185fa5"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#FAC775"/><circle cx="60" cy="56" r="30" fill="#FAC775"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="55" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="55" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="53" r="1.5" fill="#fff"/><circle cx="74" cy="53" r="1.5" fill="#fff"/><path d="M52 69 Q60 77 68 69" stroke="#2C2C2A" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="44" cy="66" rx="6" ry="4" fill="#F0997B" opacity=".6"/><ellipse cx="76" cy="66" rx="6" ry="4" fill="#F0997B" opacity=".6"/><rect x="42" y="20" width="36" height="22" rx="6" fill="#EF9F27"/><rect x="46" y="24" width="10" height="10" rx="2" fill="#fff"/><rect x="64" y="24" width="10" height="10" rx="2" fill="#fff"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#9FE1CB"/><circle cx="60" cy="56" r="30" fill="#9FE1CB"/><ellipse cx="47" cy="52" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="52" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="53" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="53" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="51" r="1.5" fill="#fff"/><circle cx="74" cy="51" r="1.5" fill="#fff"/><path d="M50 68 Q60 77 70 68" stroke="#2C2C2A" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="64" rx="5" ry="3.5" fill="#5DCAA5" opacity=".6"/><ellipse cx="75" cy="64" rx="5" ry="3.5" fill="#5DCAA5" opacity=".6"/><circle cx="60" cy="27" r="13" fill="#1D9E75" opacity=".7"/><circle cx="60" cy="25" r="8" fill="#1D9E75"/></svg>`,
+`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="65" r="38" fill="#CECBF6"/><circle cx="60" cy="56" r="30" fill="#CECBF6"/><ellipse cx="47" cy="53" rx="6" ry="7" fill="#fff"/><ellipse cx="73" cy="53" rx="6" ry="7" fill="#fff"/><circle cx="47" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="73" cy="54" r="3.5" fill="#2C2C2A"/><circle cx="48" cy="52" r="1.5" fill="#fff"/><circle cx="74" cy="52" r="1.5" fill="#fff"/><path d="M53 66 Q60 72 67 66" stroke="#2C2C2A" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="65" rx="5" ry="3.5" fill="#7F77DD" opacity=".5"/><ellipse cx="75" cy="65" rx="5" ry="3.5" fill="#7F77DD" opacity=".5"/><circle cx="60" cy="27" r="10" fill="#534AB7"/><circle cx="52" cy="32" r="7" fill="#7F77DD"/><circle cx="68" cy="32" r="7" fill="#7F77DD"/></svg>`,
+];
+
+let clKey='';
+function lsGet(k){try{return localStorage.getItem(k);}catch{return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch{}}
+function lsDel(k){try{localStorage.removeItem(k);}catch{}}
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function todayKo(){const d=new Date();return `${d.getMonth()+1}/${d.getDate()} (${['일','월','화','수','목','금','토'][d.getDay()]})`;}
+
+function getHistory(){try{return JSON.parse(lsGet('dte_history')||'[]');}catch{return[];}}
+function getSaved(){try{return JSON.parse(lsGet('dte_saved')||'[]');}catch{return[];}}
+function isSaved(en){return getSaved().some(x=>x.en===en);}
+function toggleSave(card){
+  let s=getSaved();
+  const i=s.findIndex(x=>x.en===card.en);
+  if(i>=0)s.splice(i,1);else s.unshift({...card,savedAt:todayStr()});
+  lsSet('dte_saved',JSON.stringify(s));
+  updateStats();
+}
+function addToHistory(cards){
+  const h=getHistory();
+  const today=todayStr();
+  const existing=h.find(x=>x.date===today);
+  if(!existing)h.unshift({date:today,cards});
+  lsSet('dte_history',JSON.stringify(h.slice(0,60)));
+}
+
+function updateStats(){
+  const h=getHistory();
+  let streak=0;const d=new Date();
+  for(let i=0;i<365;i++){
+    const dd=new Date(d);dd.setDate(d.getDate()-i);
+    const k=`${dd.getFullYear()}-${String(dd.getMonth()+1).padStart(2,'0')}-${String(dd.getDate()).padStart(2,'0')}`;
+    if(h.find(x=>x.date===k))streak++;else break;
+  }
+  const todayDone=parseInt(lsGet('dte_today_done_'+todayStr())||'0');
+  document.getElementById('sn-streak').textContent=streak;
+  document.getElementById('sn-today').textContent=todayDone+'/10';
+  document.getElementById('sn-total').textContent=h.length;
+}
+
+function getTodayCards(){
+  try{const r=lsGet('dte_cards_'+todayStr());return r?JSON.parse(r):null;}catch{return null;}
+}
+function saveTodayCards(cards){lsSet('dte_cards_'+todayStr(),JSON.stringify(cards));}
+
+function incTodayDone(){
+  const k='dte_today_done_'+todayStr();
+  const n=parseInt(lsGet(k)||'0')+1;
+  lsSet(k,n);updateStats();
+  return n;
+}
+
+let cards=[], cur=0;
+
+function showLoading(msg){
+  document.getElementById('root').innerHTML=`
+    <div class="loading-card">
+      <div class="spin"></div>
+      <div class="loading-msg">${msg||'오늘의 표현 10개 생성 중...'}</div>
+    </div>`;
+}
+
+function showError(msg){
+  document.getElementById('root').innerHTML=`
+    <div class="loading-card">
+      <div class="err-msg">${msg}</div>
+      <button class="btn pink" style="width:200px;padding:12px" onclick="generate()">다시 시도</button>
+      <button class="btn" style="width:200px;padding:11px;margin-top:6px" onclick="showSetup()">API 키 설정</button>
+    </div>`;
+}
+
+function showSetup(){
+  const has=!!clKey;
+  document.getElementById('root').innerHTML=`
+    <div class="setup-card">
+      <div class="s-title">Claude API 키 설정</div>
+      <div class="s-desc">한 번 입력하면 이 기기에 영구 저장됩니다.<br>브라우저를 닫아도 유지됩니다.</div>
+      ${has?`<div class="s-notice">저장된 키 있음 ✓</div>`:''}
+      <input type="password" class="key-inp" id="ki" placeholder="sk-ant-...">
+      <button class="btn pink" style="width:100%;padding:12px;margin-bottom:8px" onclick="saveKey()">${has?'키 교체':'저장하고 시작'}</button>
+      ${has?`<button class="btn" style="width:100%;padding:11px;margin-bottom:6px" onclick="backToApp()">← 돌아가기</button>`:''}
+      ${has?`<button class="btn" style="width:100%;padding:10px;font-size:12px;color:#a32d2d" onclick="delKey()">저장된 키 삭제</button>`:''}
+    </div>
+    <div class="guide">
+      API 키 발급: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
+      → API Keys → Create Key → 복사<br>
+      → Billing → Add Credits → $5 충전
+    </div>`;
+}
+
+function saveKey(){
+  const v=document.getElementById('ki').value.trim();
+  if(!v){alert('키를 입력해 주세요.');return;}
+  clKey=v;lsSet('dte_key',clKey);generate();
+}
+function delKey(){if(!confirm('키를 삭제할까요?'))return;clKey='';lsDel('dte_key');showSetup();}
+function backToApp(){if(cards.length)renderCard();else generate();}
+
+async function generate(){
+  if(!clKey){showSetup();return;}
+  showLoading('오늘의 표현 10개 생성 중...');
+  const h=getHistory();
+  const usedRecent=h.flatMap(x=>x.cards||[]).slice(0,30).map(x=>x.en).join(', ');
+
+  const prompt=`오늘의 영어 표현 카드 10개를 만들어주세요.
+
+조건:
+- 일상에서 실제로 쓰는 자연스러운 구어체 표현
+- 한국인이 잘 모르지만 원어민이 자주 쓰는 표현
+- 다양한 카테고리 (일상, 감정, 쇼핑, 음식, 직장, 여행 등 섞어서)
+- 중급 수준
+- 최근 사용 표현 제외: ${usedRecent||'없음'}
+- 각 표현마다 관련 단어/숙어 2~3개 포함
+
+JSON만 반환 (마크다운 없이):
+[{"en":"표현","ko":"번역","category":"카테고리","nuance":"뉘앙스(1~2줄)","example_en":"예문","example_ko":"예문번역","vocab":[{"type":"word또는idiom","en":"단어/숙어","pron":"/발음기호/또는빈문자열","ko":"설명"}]}]`;
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':lsGet('dte_key')||clKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:4000,
+        system:'영어 표현 카드 전문가. 유효한 JSON 배열만 반환. 마크다운 없이.',
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const d=await res.json();
+    if(d.error)throw new Error(d.error.message);
+    const text=(d.content?.[0]?.text||'').replace(/```json|```/g,'').trim();
+    const data=JSON.parse(text);
+    if(!Array.isArray(data)||!data.length)throw new Error('데이터 오류');
+    cards=data.slice(0,10);
+    saveTodayCards(cards);
+    addToHistory(cards);
+    cur=0;
+    renderCard();
+  }catch(e){
+    showError('생성 오류: '+e.message);
+  }
+}
+
+function renderCard(){
+  if(!cards.length)return;
+  const c=cards[cur];
+  const total=cards.length;
+  const pct=Math.round((cur/total)*100);
+  const charIdx=(getHistory().length*10+cur)%CHARS.length;
+
+  const dots=cards.map((_,i)=>
+    `<div class="${i===cur?'dot cur':i<cur?'dot seen':'dot'}" onclick="goTo(${i})"></div>`
+  ).join('');
+
+  const vocabHtml=c.vocab&&c.vocab.length?`
+    <div class="vocab-label">단어 & 숙어</div>
+    ${c.vocab.map(v=>`
+      <div class="vocab-item">
+        <span class="vbadge ${v.type==='idiom'?'vb-idiom':'vb-word'}">${v.type==='idiom'?'숙어':'단어'}</span>
+        <div>
+          <div class="v-en">${v.en}${v.pron?` <span class="v-pron">${v.pron}</span>`:''}</div>
+          <div class="v-ko">${v.ko}</div>
+        </div>
+      </div>`).join('')}`:'';
+
+  document.getElementById('root').innerHTML=`
+    <div class="prog-wrap">
+      <div class="prog-top">
+        <span class="prog-text">${todayKo()}</span>
+        <span class="prog-text">${cur+1} / ${total}</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="dots">${dots}</div>
+    <div class="card">
+      <div class="card-top">
+        <div class="char-area">${CHARS[charIdx]}</div>
+        <div class="tag">${c.category||'오늘의 표현'}</div>
+        <div class="expression">${c.en}</div>
+      </div>
+      <div class="ko-box">
+        <div class="ko-text">${c.ko}</div>
+        <div class="nuance">${c.nuance||''}</div>
+      </div>
+      <div class="ex-box">
+        <div class="ex-label">예문</div>
+        <div class="ex-en">${c.example_en||''}</div>
+        <div class="ex-ko">${c.example_ko||''}</div>
+      </div>
+      ${vocabHtml}
+    </div>
+    <div class="btn-row">
+      <button class="btn star" id="save-btn" onclick="doSave()">${isSaved(c.en)?'★ 저장됨':'☆ 저장'}</button>
+      <button class="btn primary" onclick="doNext()">${cur<total-1?'다음 →':'완료 ✓'}</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="prev()" ${cur>0?'':'style="opacity:.3;pointer-events:none"'}>← 이전</button>
+      <button class="btn" onclick="showHistory()">지난 표현</button>
+      <button class="btn" onclick="showSaved()">저장한 표현</button>
+    </div>
+    <div class="hint">소리 내어 따라 말해보세요</div>`;
+
+  window._curCard=c;
+}
+
+function doSave(){
+  if(!window._curCard)return;
+  toggleSave(window._curCard);
+  const btn=document.getElementById('save-btn');
+  if(btn)btn.textContent=isSaved(window._curCard.en)?'★ 저장됨':'☆ 저장';
+}
+
+function doNext(){
+  incTodayDone();
+  if(cur<cards.length-1){cur++;renderCard();}
+  else renderDone();
+}
+
+function prev(){if(cur>0){cur--;renderCard();}}
+function goTo(i){cur=i;renderCard();}
+
+function renderDone(){
+  document.getElementById('root').innerHTML=`
+    <div class="done-card">
+      <div class="done-icon">🎉</div>
+      <div class="done-msg">오늘의 표현 완료!</div>
+      <div class="done-sub">10개 표현을 모두 봤어요.<br>내일 새로운 10개가 기다리고 있어요.</div>
+      <div class="btn-row" style="justify-content:center;gap:8px">
+        <button class="btn" style="padding:13px 20px" onclick="cur=0;renderCard()">다시 보기</button>
+        <button class="btn pink" style="padding:13px 20px" onclick="if(confirm('새 표현 10개를 생성할까요?'))generate()">새로 생성</button>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="showHistory()">지난 표현 보기</button>
+      <button class="btn" onclick="showSaved()">저장한 표현</button>
+    </div>`;
+}
+
+function showHistory(){
+  const h=getHistory();
+  if(!h.length){alert('아직 학습 기록이 없어요.');return;}
+  document.getElementById('root').innerHTML=`
+    <div class="section-title">지난 표현 기록</div>
+    <div class="hi-list">
+      ${h.map(day=>`
+        <div class="hi-day">
+          <div class="hi-date-label">${day.date}</div>
+          ${(day.cards||[]).map(c=>`
+            <div class="hi-item" onclick='viewCard(${JSON.stringify(c).replace(/'/g,"&#39;")})'>
+              <div>
+                <div class="hi-en">${c.en}</div>
+                <div class="hi-ko">${c.ko}</div>
+              </div>
+              <span class="hi-star">${isSaved(c.en)?'★':''}</span>
+            </div>`).join('')}
+        </div>`).join('')}
+    </div>
+    <button class="btn" style="width:100%;padding:12px" onclick="backToApp()">← 돌아가기</button>`;
+}
+
+function showSaved(){
+  const s=getSaved();
+  if(!s.length){alert('아직 저장한 표현이 없어요!');return;}
+  document.getElementById('root').innerHTML=`
+    <div class="section-title">저장한 표현 (${s.length}개)</div>
+    <div class="hi-list">
+      ${s.map(c=>`
+        <div class="hi-item" onclick='viewCard(${JSON.stringify(c).replace(/'/g,"&#39;")})'>
+          <div>
+            <div class="hi-en">${c.en}</div>
+            <div class="hi-ko">${c.ko}</div>
+          </div>
+          <span class="hi-star">★</span>
+        </div>`).join('')}
+    </div>
+    <button class="btn" style="width:100%;padding:12px" onclick="backToApp()">← 돌아가기</button>`;
+}
+
+function viewCard(c){
+  window._curCard=c;
+  const charIdx=Math.floor(Math.random()*CHARS.length);
+  const vocabHtml=c.vocab&&c.vocab.length?`
+    <div class="vocab-label" style="margin-top:0">단어 & 숙어</div>
+    ${c.vocab.map(v=>`
+      <div class="vocab-item">
+        <span class="vbadge ${v.type==='idiom'?'vb-idiom':'vb-word'}">${v.type==='idiom'?'숙어':'단어'}</span>
+        <div>
+          <div class="v-en">${v.en}${v.pron?` <span class="v-pron">${v.pron}</span>`:''}</div>
+          <div class="v-ko">${v.ko}</div>
+        </div>
+      </div>`).join('')}`:'';
+  document.getElementById('root').innerHTML=`
+    <div class="card">
+      <div class="card-top">
+        <div class="char-area">${CHARS[charIdx]}</div>
+        <div class="tag">${c.category||''}</div>
+        <div class="expression">${c.en}</div>
+      </div>
+      <div class="ko-box">
+        <div class="ko-text">${c.ko}</div>
+        <div class="nuance">${c.nuance||''}</div>
+      </div>
+      <div class="ex-box">
+        <div class="ex-label">예문</div>
+        <div class="ex-en">${c.example_en||''}</div>
+        <div class="ex-ko">${c.example_ko||''}</div>
+      </div>
+      ${vocabHtml}
+    </div>
+    <div class="btn-row">
+      <button class="btn star" id="save-btn" onclick="doSave();document.getElementById('save-btn').textContent=isSaved(window._curCard.en)?'★ 저장됨':'☆ 저장'">${isSaved(c.en)?'★ 저장됨':'☆ 저장'}</button>
+      <button class="btn primary" onclick="backToApp()">← 돌아가기</button>
+    </div>`;
+}
+
+clKey=lsGet('dte_key')||'';
+updateStats();
+const saved_cards=getTodayCards();
+if(saved_cards&&saved_cards.length){cards=saved_cards;cur=0;renderCard();}
+else if(clKey){generate();}
+else{showSetup();}
+</script>
+</body>
+</html>
